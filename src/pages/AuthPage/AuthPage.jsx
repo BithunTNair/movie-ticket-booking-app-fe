@@ -8,6 +8,7 @@ function AuthPage() {
        
       
         <Signup/>
+        <LogIn/>
         <p>Already have an account <i>LogIn</i> </p>
 
     </div>

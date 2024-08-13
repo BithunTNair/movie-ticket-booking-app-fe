@@ -5,13 +5,14 @@ import './App.css'
 import Input from './components/common/Input'
 import Signup from './components/Authentication/Signup'
 import AuthPage from './pages/AuthPage/AuthPage'
+import Routing from './components/Routing'
 
 function App() {
-  
+
 
   return (
     <>
- <AuthPage/>
+      <Routing />
     </>
   )
 }
