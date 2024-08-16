@@ -8,7 +8,7 @@ function AuthPage() {
        
       
         <Signup/>
-        <p>Already have an account <i>LogIn</i> </p>
+        {/* <p>Already have an account <i>LogIn</i> </p> */}
 
     </div>
   )

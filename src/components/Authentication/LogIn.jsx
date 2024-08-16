@@ -2,8 +2,11 @@ import React from 'react'
 import Input from '../common/Input'
 import { useForm } from "react-hook-form"
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 function LogIn() {
+  const navigate=useNavigate()
   const {
     register,
     handleSubmit,
@@ -17,6 +20,8 @@ function LogIn() {
         data:data
       }).then((response)=>{
         console.log(response.data);
+        navigate('/home')
+
         
       }).catch((err)=>{
         console.log(err.response.data);

@@ -12,7 +12,7 @@ function NavbarCom() {
       <div className="container mx-auto flex items-center justify-between">
         {/* Brand */}
         <div className="text-white text-2xl font-bold">
-          <Link to="/">MovieBooking</Link>
+          <Link to='#'>Movie Ticket Booking</Link>
         </div>
 
         {/* Toggle button for mobile */}
