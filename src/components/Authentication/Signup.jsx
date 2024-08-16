@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { useNavigate } from 'react-router-dom';
 
 
 function Signup() {
@@ -13,7 +14,7 @@ function Signup() {
       lastName: yup.string().required(),
       mobileNumber: yup.string().matches(/^\d{10}$/).required(),
       email: yup.string().email().required(),
-      password:yup.string().min(8).max(12).required(),
+      password: yup.string().min(8).max(12).required(),
     })
     .required()
   const {
@@ -22,14 +23,16 @@ function Signup() {
     watch,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
-  const onSubmit = async(data) => {
+  const navigate = useNavigate()
+  const onSubmit = async (data) => {
     try {
-  const response=await    axios({
+      const response = await axios({
         url: `${import.meta.env.VITE_BASE_URL}/auth/signup`,
         method: 'POST',
         data: data
       }).then((response) => {
         console.log(response.data);
+        navigate('/login')
 
       }).catch((err) => {
         console.log(err.response.data);
@@ -38,8 +41,9 @@ function Signup() {
       console.log(error);
     }
   };
+  
   return (
-    <div className="flex min-h-screen items-center justify-center bg-slate-300">
+    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat "   style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,11 +54,11 @@ function Signup() {
             </div>
             <div>
               <Input type={'text'} placeholder={'Last Name'}{...register("lastName")} />
-              <p className='text-red-400'>{errors.lastName  && 'Last Name is required'}</p>
+              <p className='text-red-400'>{errors.lastName && 'Last Name is required'}</p>
             </div>
             <div>
               <Input type={'email'} placeholder={'Email'}{...register("email")} />
-              <p className='text-red-400'>{errors.email  && 'Email is required'}</p>
+              <p className='text-red-400'>{errors.email && 'Email is required'}</p>
             </div>
             <div>
               <Input type={'Number'} placeholder={'Mobile Number'}{...register("mobileNumber")} />
@@ -65,7 +69,7 @@ function Signup() {
               <p className='text-red-400'>{errors.password?.message}</p>
             </div>
             <div>
-              <Input type={'password'} placeholder={'Confirm Password'}{...register("password")} />          
+              <Input type={'password'} placeholder={'Confirm Password'}{...register("password")} />
             </div>
             <div>
               <button
@@ -77,6 +81,7 @@ function Signup() {
             </div>
           </div>
         </form>
+        <p>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer' onClick={() => navigate('/login')} >LogIn</i> </p>
       </div>
     </div>
   )
