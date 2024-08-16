@@ -5,6 +5,7 @@ import axios from 'axios';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useNavigate } from 'react-router-dom';
+import { errorToast, successToast } from '../../Plugins/Toast';
 
 
 function Signup() {
@@ -32,10 +33,12 @@ function Signup() {
         data: data
       }).then((response) => {
         console.log(response.data);
+        successToast('Signup successfull')
         navigate('/login')
 
       }).catch((err) => {
         console.log(err.response.data);
+        errorToast('Something went wrong')
       })
     } catch (error) {
       console.log(error);
@@ -81,7 +84,7 @@ function Signup() {
             </div>
           </div>
         </form>
-        <p>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer' onClick={() => navigate('/login')} >LogIn</i> </p>
+        <p className='font-medium'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login')} >LogIn</i> </p>
       </div>
     </div>
   )
