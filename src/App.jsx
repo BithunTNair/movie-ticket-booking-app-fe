@@ -1,10 +1,10 @@
-import { useState } from 'react'
+
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import Input from './components/common/Input'
-import Signup from './components/Authentication/Signup'
-import AuthPage from './pages/AuthPage/AuthPage'
 import Routing from './components/Routing'
+import { ToastContainer } from 'react-toastify';
+import Loader from './components/common/Loader';
+
 
 
 function App() {
@@ -12,7 +12,9 @@ function App() {
 
   return (
     <>
+    <ToastContainer/>
       <Routing />
+      {/* <Loader/> */}
     </>
   )
 }

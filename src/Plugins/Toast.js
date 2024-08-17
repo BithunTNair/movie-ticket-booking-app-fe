@@ -1,6 +1,6 @@
 
 
-import {toast, Bounce} from 'react-toastify'
+import { toast, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 export function successToast(message) {
     toast.success(message, {
@@ -17,7 +17,7 @@ export function successToast(message) {
 }
 
 export function errorToast(message) {
-    toast.success(message, {
+    toast.error(message, {
         position: "top-center",
         autoClose: 5000,
         hideProgressBar: false,

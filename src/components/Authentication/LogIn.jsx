@@ -31,13 +31,14 @@ function LogIn() {
         data: data
       }).then((response) => {
         console.log(response.data);
+        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user))
         navigate('/home')
 
 
       }).catch((err) => {
         console.log(err.response.data);
-        errorToast('error');
-        alert('Invalid Credentials')
+        errorToast('Invalid Credentials');
 
       })
     } catch (error) {

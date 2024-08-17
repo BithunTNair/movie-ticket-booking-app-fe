@@ -1,0 +1,18 @@
+.loader-gradient {
+    border-color: transparent;
+    border-top: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid;
+    border-image: conic-gradient(
+      from 0deg,
+      red,
+      orange,
+      yellow,
+      green,
+      blue,
+      indigo,
+      violet,
+      red
+    ) 1;
+  }
