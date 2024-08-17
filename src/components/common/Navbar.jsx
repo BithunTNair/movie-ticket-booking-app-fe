@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom';
-
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function NavbarCom() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
-    return (
-        <>
-        <nav className="bg-gray-900 p-4">
+  return (
+    <>
+      <nav className="bg-gray-900 p-4">
       <div className="container mx-auto flex items-center justify-between">
         {/* Brand */}
-        <div className="text-white text-2xl font-bold">
-          <Link to='#'>Movie Ticket Booking</Link>
+        <div
+          onClick={() => navigate('/')}
+          className="text-white text-2xl font-bold cursor-pointer"
+        >
+          Movie Ticket Booking
         </div>
 
         {/* Toggle button for mobile */}
@@ -40,28 +43,27 @@ function NavbarCom() {
 
         {/* Links */}
         <div
-          className={`${
-            isOpen ? 'block' : 'hidden'
-          } md:flex items-center space-x-4`}
+          className={`${isOpen ? 'block' : 'hidden'
+            } md:flex items-center space-x-4`}
         >
-          <Link
-            to="/movies"
+          <button
+            onClick={() => navigate('/movies')}
             className="text-white hover:text-blue-400 transition-colors"
           >
             Movies
-          </Link>
-          <Link
-            to="/theatres"
+          </button>
+          <button
+            onClick={() => navigate('/theatres')}
             className="text-white hover:text-blue-400 transition-colors"
           >
             Theatres
-          </Link>
-          <Link
-            to="/about"
+          </button>
+          <button
+            onClick={() => navigate('/about')}
             className="text-white hover:text-blue-400 transition-colors"
           >
             About
-          </Link>
+          </button>
 
           {/* Dropdown Menu */}
           <div className="relative">
@@ -73,32 +75,32 @@ function NavbarCom() {
             </button>
             {isDropdownOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
-                <Link
-                  to="/profile"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                <button
+                  onClick={() => navigate('/profile')}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                 >
                   Profile
-                </Link>
-                <Link
-                  to="/settings"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                </button>
+                <button
+                  onClick={() => navigate('/settings')}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                 >
                   Settings
-                </Link>
-                <Link
-                  to="/logout"
-                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                </button>
+                <button
+                  onClick={() => navigate('/', { replace: true })}
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                 >
                   Logout
-                </Link>
+                </button>
               </div>
             )}
           </div>
         </div>
       </div>
     </nav>
-        </>
-    )
+    </>
+  )
 }
 
 export default NavbarCom

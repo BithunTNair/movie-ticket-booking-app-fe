@@ -6,9 +6,12 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../Plugins/Toast';
+import { useDispatch } from 'react-redux';
+import { setLoader } from '../../Redux/generalSlice';
 
 
 function Signup() {
+  const dispatch = useDispatch()
   const schema = yup
     .object({
       firstName: yup.string().required(),
@@ -33,20 +36,23 @@ function Signup() {
         data: data
       }).then((response) => {
         console.log(response.data);
-        successToast('Signup successfull')
-        navigate('/login')
+        successToast('Signup successfull');
+        dispatch(setLoader(true))
+        navigate('/login', { replace: true });
+        dispatch(setLoader(false))
 
       }).catch((err) => {
         console.log(err.response.data);
-        errorToast('Something went wrong')
+        errorToast('Something went wrong');
       })
     } catch (error) {
       console.log(error);
+      errorToast('Something went wrong');
     }
   };
-  
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat "   style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
+    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,7 +90,7 @@ function Signup() {
             </div>
           </div>
         </form>
-        <p className='font-medium'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login')} >LogIn</i> </p>
+        <p className='font-medium'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login', { replace: true })} >LogIn</i> </p>
       </div>
     </div>
   )

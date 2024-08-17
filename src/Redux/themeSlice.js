@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    loader: false
+    theme: false
 
 };
 
@@ -11,7 +11,7 @@ const generalSlice = createSlice({
     initialState: initialState,
     reducers: {
         setLoader: (state, action) => {
-            state.loader = action.payload;
+            state.general = action.payload;
         }
     }
 });

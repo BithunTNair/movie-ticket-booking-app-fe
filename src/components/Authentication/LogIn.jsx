@@ -7,10 +7,13 @@ import { errorToast } from '../../Plugins/Toast';
 import { successToast } from '../../Plugins/Toast';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
+import { useDispatch } from 'react-redux';
+import { setLoader } from '../../Redux/generalSlice';
 
 
 function LogIn() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const schema = yup
     .object({
       email: yup.string().email().required(),
@@ -31,19 +34,20 @@ function LogIn() {
         data: data
       }).then((response) => {
         console.log(response.data);
-        localStorage.setItem('token',response.data.token);
-        localStorage.setItem('user', JSON.stringify(response.data.user))
-        navigate('/home')
-
-
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        dispatch(setLoader(true));
+        successToast('signed in successfully')
+        navigate('/home', { replace: true });
+        dispatch(setLoader(false));
       }).catch((err) => {
         console.log(err.response.data);
         errorToast('Invalid Credentials');
-
+      
       })
     } catch (error) {
       console.log(error);
-
+      errorToast('something went wrong');
     }
   }
   return (
