@@ -50,7 +50,7 @@ function NavbarCom() {
               } md:flex items-center space-x-4`}
           >
             <button
-              onClick={() => navigate('/movies')}
+              onClick={() => navigate('/movielist')}
               className="text-white hover:text-blue-400 transition-colors"
             >
               Movies
