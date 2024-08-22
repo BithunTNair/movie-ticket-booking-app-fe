@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react'
-import AxiosInstance from '../../Config/ApiCall'
+import React from 'react'
 
-function Card() {
-    useEffect(async() => {
-    try {
-        const movies= await   AxiosInstance({
-            url: '/user/movielist',
-            method: 'GET'
-        })
-    } catch (error) {
-        console.log(error);
-        
-    }
-    }, [])
+
+function Card({moviedata}) {
     return (
-        <div className="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white transform hover:scale-105 transition-transform duration-300">
+       <>
+     <div className="max-w-xs rounded-lg overflow-hidden shadow-lg bg-white transform hover:scale-105 transition-transform duration-300">
             {/* Image or Icon Section */}
             <div className="relative">
                 <img
@@ -23,7 +13,7 @@ function Card() {
                     alt="Card Image"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
-                    <h3 className="text-white text-lg font-bold"></h3>
+                    <h3 className="text-white text-lg font-bold">{moviedata?.title} </h3>
                     <p className="text-gray-300 text-sm">Card Subtitle</p>
                 </div>
             </div>
@@ -31,7 +21,7 @@ function Card() {
             {/* Info Section */}
             <div className="p-4">
                 <p className="text-gray-600 text-base">
-                    A brief description goes here. This can be an introduction or summary of the content within the card.
+                   {moviedata?.description}
                 </p>
             </div>
 
@@ -43,6 +33,7 @@ function Card() {
             </div>
         </div>
 
+       </>
     )
 }
 
