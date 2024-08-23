@@ -8,10 +8,7 @@ function Home() {
 
         <NavbarCom/>
       <div className='mt-10 ml-10 flex gap-10 justify-center'>
-      <Card />
-      <Card />
-      <Card />
-      <Card />
+     
       </div>
         
     </div>

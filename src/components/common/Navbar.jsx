@@ -7,7 +7,7 @@ function NavbarCom() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector(store => store.user);
-  
+
 
   return (
     <>
@@ -18,7 +18,7 @@ function NavbarCom() {
             onClick={() => navigate('/')}
             className="text-white text-2xl font-bold cursor-pointer"
           >
-           TapTickets
+            TapTickets
           </div>
 
           {/* Toggle button for mobile */}
@@ -67,6 +67,12 @@ function NavbarCom() {
             >
               Theatres
             </button>
+            {user.role === 1 && <button
+              onClick={() => navigate('/addtheatre')}
+              className="text-white hover:text-blue-400 transition-colors"
+            >
+              Add Theatre
+            </button>}
             <button
               onClick={() => navigate('/about')}
               className="text-white hover:text-blue-400 transition-colors"

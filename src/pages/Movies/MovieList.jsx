@@ -7,19 +7,13 @@ function MovieList() {
     useEffect(() => {
         getAllMovies()
     }, [])
-    const getAllMovies = () => {
+    const getAllMovies = async () => {
         try {
-            AxiosInstance({
+            const movie = await AxiosInstance({
                 url: '/users/movielist',
                 method: 'GET'
-            }).then((response) => {
-                setMovieBox(response.data);
-                console.log(movieBox);
-
-            }).catch((error) => {
-                console.log(error);
-
             })
+            setMovieBox(movie.data.movies);
         } catch (error) {
             console.log(error);
 
@@ -28,18 +22,11 @@ function MovieList() {
     return (
         <>
             <div className=' min-w-screen-sm flex flex-wrap gap-7 ml-10 mt-10 mr-10 justify-between'>
-                <Card />
-                <Card />
-                <Card />
-                <Card />
-                <Card />
 
-              
-
-
-
+                {movieBox.map((element,index) => {
+                    return <Card key={index} moviedata={element} />
+                })}
             </div>
-
         </>
     )
 }
