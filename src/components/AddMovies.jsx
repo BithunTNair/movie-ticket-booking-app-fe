@@ -30,6 +30,7 @@ function AddMovies() {
   } = useForm({ resolver: yupResolver(schema) });
   const navigate = useNavigate()
   const onSubmit = async (data) => {
+    dispatch(setLoader(true))
     try {
       const formData= new FormData();
       formData.append('title',data.title);
@@ -45,10 +46,13 @@ function AddMovies() {
         headers:{
            'Content-Type': 'multipart/form-data'
         }
-      })
+      });
+      dispatch(setLoader(false));
+      successToast('movie was added successfully')
     } catch (error) {
       console.log(error);
       errorToast('Something went wrong');
+      dispatch(setLoader(false))
     }
   };
 

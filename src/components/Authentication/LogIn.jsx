@@ -27,6 +27,7 @@ function LogIn() {
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
   const onSubmit = (data) => {
+    dispatch(setLoader(true));
     try {
       axios({
         url: `${import.meta.env.VITE_BASE_URL}/auth/signin`,
@@ -36,18 +37,21 @@ function LogIn() {
         console.log(response.data);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-        dispatch(setLoader(true));
-        successToast('signed in successfully')
-        navigate('/home', { replace: true });
+       
+        successToast('signed in successfully');
         dispatch(setLoader(false));
+        navigate('/home', { replace: true });
+       
       }).catch((err) => {
         console.log(err.response.data);
         errorToast('Invalid Credentials');
+        dispatch(setLoader(false));
       
       })
     } catch (error) {
       console.log(error);
       errorToast('something went wrong');
+      dispatch(setLoader(false));
     }
   }
   return (

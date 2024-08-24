@@ -8,6 +8,7 @@ import TheatreSeats from './TheatreSeats'
 import AddMovies from './AddMovies'
 import AddTheatre from './AddTheatre'
 import MovieList from '../pages/Movies/MovieList'
+import TheatreList from './Theatre/TheatreList'
 
 
 function Routing() {
@@ -18,7 +19,7 @@ function Routing() {
                 <Route path='/home' element={<Home />} />
                 <Route path='/login' element={<LogIn />} />
                 <Route path='/movielist' element={<MovieList />} />
-                <Route path='/theatres' element={<Theatres />} />
+                <Route path='/theatres' element={<TheatreList />} />
                 <Route path='/theatreseats' element={<TheatreSeats />} />
                 <Route path='/addmovies' element={<AddMovies />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />

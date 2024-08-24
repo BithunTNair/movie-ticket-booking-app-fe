@@ -28,22 +28,24 @@ function Signup() {
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
   const navigate = useNavigate()
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
+    dispatch(setLoader(true))
     try {
-      const response = await axios({
+      axios({
         url: `${import.meta.env.VITE_BASE_URL}/auth/signup`,
         method: 'POST',
         data: data
       }).then((response) => {
         console.log(response.data);
         successToast('Signup successfull');
-        dispatch(setLoader(true))
-        navigate('/login', { replace: true });
         dispatch(setLoader(false))
+        navigate('/login', { replace: true });
+
 
       }).catch((err) => {
         console.log(err.response.data);
         errorToast('Something went wrong');
+        dispatch(setLoader(false))
       })
     } catch (error) {
       console.log(error);

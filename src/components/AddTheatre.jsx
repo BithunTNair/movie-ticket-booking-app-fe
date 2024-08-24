@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form"
 import AxiosInstance from '../Config/ApiCall';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../Plugins/Toast';
 import { setLoader } from '../Redux/generalSlice';
 import Input from '../components/common/Input'
@@ -44,15 +43,16 @@ function AddTheatre() {
     watch,
     formState: { errors }
   } = useForm({ resolver: yupResolver(schema) });
-  const navigate = useNavigate()
   const onSubmit = async (data) => {
     try {
       AxiosInstance({
         url: '/admin/addtheatre',
         method: 'POST',
         data: data,
-      }).then((response)=>{
-        successToast('Theatre was added successfully')
+      }).then((response) => {
+        successToast('Theatre was added successfully');
+
+
       })
     } catch (error) {
       console.log(error);
@@ -77,18 +77,18 @@ function AddTheatre() {
                 <p className='text-red-400'>{errors.description && 'Description is required'}</p>
               </div>
               <div>
-               <select {...register('movie')}  className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                <option className='font-semibold'>select movie</option>
-                {movies.map((element,index)=>{
-                  return <option  className='font-semibold' key={index} value={movies._id}>
-                    {element.title}
-                  </option>
-                })}
-               </select>
+                <select {...register('movie')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option className='font-semibold'>select movie</option>
+                  {movies.map((element, index) => {
+                    return <option className='font-semibold' key={index} value={element._id}>
+                      {element.title}
+                    </option>
+                  })}
+                </select>
                 <p className='text-red-400'>{errors.genre && 'Genre is required'}</p>
               </div>
               <div>
-                <Input type={'text'} placeholder={'Number of Seats'}{...register("no.of.seats")} />
+                <Input type={'text'} placeholder={'Number of Seats'}{...register("seats")} />
                 <p className='text-red-400'>{errors.director && 'Director name is required'}</p>
               </div>
               <div>
