@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import AxiosInstance from '../../Config/ApiCall';
+import { useNavigate } from 'react-router-dom';
 
 function TheatreList() {
+    const navigate=useNavigate()
     const [theatres, setTheatres] = useState([]);
     useEffect(() => {
         getTheatres()
@@ -27,7 +29,8 @@ function TheatreList() {
                     </div>
                     {/* Theatre Actions */}
                     <div className="flex space-x-3">
-                        <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300">View</button>
+                        <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300" onClick={()=>{navigate('/theatres/theatreseats/:id')}} value={element._id} >View</button>
+                       
                     </div>
                 </div>
             </div>

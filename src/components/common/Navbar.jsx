@@ -73,12 +73,7 @@ function NavbarCom() {
             >
               Add Theatre
             </button>}
-            <button
-              onClick={() => navigate('/about')}
-              className="text-white hover:text-blue-400 transition-colors"
-            >
-              About
-            </button>
+
 
             {/* Dropdown Menu */}
             <div className="relative">
@@ -86,7 +81,7 @@ function NavbarCom() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="text-white hover:text-blue-400 transition-colors focus:outline-none"
               >
-                Account
+                <span className='font-bold text-3xl' > {user.firstName + ' ' + user.lastName}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">

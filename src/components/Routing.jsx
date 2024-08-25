@@ -3,12 +3,12 @@ import { Route, Routes } from 'react-router-dom'
 import AuthPage from '../pages/AuthPage/AuthPage'
 import Home from '../pages/Home/Home'
 import LogIn from './Authentication/LogIn'
-import Theatres from './Theatres'
-import TheatreSeats from './TheatreSeats'
 import AddMovies from './AddMovies'
 import AddTheatre from './AddTheatre'
 import MovieList from '../pages/Movies/MovieList'
-import TheatreList from './Theatre/TheatreList'
+import TheatrePage from '../pages/TheatrePage/TheatrePage'
+import TheatreSeatPage from '../pages/TheatreSeats/TheatreSeatPage'
+import TheatreSeats from './Theatre/TheatreSeats'
 
 
 function Routing() {
@@ -19,8 +19,8 @@ function Routing() {
                 <Route path='/home' element={<Home />} />
                 <Route path='/login' element={<LogIn />} />
                 <Route path='/movielist' element={<MovieList />} />
-                <Route path='/theatres' element={<TheatreList />} />
-                <Route path='/theatreseats' element={<TheatreSeats />} />
+                <Route path='/theatres' element={<TheatrePage />} />
+                <Route path='/theatres/theatreseats/:id' element={<TheatreSeats/>} />
                 <Route path='/addmovies' element={<AddMovies />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
             </Routes>
