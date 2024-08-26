@@ -8,7 +8,9 @@ import { successToast } from '../../Plugins/Toast';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import { useDispatch } from 'react-redux';
+import { setUser } from '../../Redux/userSlice';
 import { setLoader } from '../../Redux/generalSlice';
+import img1 from '../../background-images/movie2.jpg'
 
 
 function LogIn() {
@@ -37,7 +39,7 @@ function LogIn() {
         console.log(response.data);
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
-       
+        dispatch(setUser(response.data.user));
         successToast('signed in successfully');
         dispatch(setLoader(false));
         navigate('/home', { replace: true });
@@ -55,9 +57,9 @@ function LogIn() {
     }
   }
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Log In</h2>
+    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md transform hover:scale-110 transition-transform duration-300" style={{backgroundImage:`url(${img1})`}}>
+        <h2 className="text-2xl font-bold text-center mb-6 text-white">Log In</h2>
         <form onSubmit={handleSubmit(onSubmit)} >
           <div className="flex flex-col space-y-4">
             <div>
@@ -71,14 +73,14 @@ function LogIn() {
             <div>
               <button
                 type="submit"
-                className="w-full bg-slate-700 text-white py-2 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="w-full bg-pink-300 text-white py-2 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-110 transition-transform duration-300"
               >
                 Log In
               </button>
             </div>
           </div>
         </form>
-        <p className='font-medium' >Don't have an account ? <i className=' text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/')
+        <p className='font-medium text-white' >Don't have an account ? <i className=' text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/')
         } >Sign Up</i> </p>
       </div>
     </div>

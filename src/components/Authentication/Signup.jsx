@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../Plugins/Toast';
 import { useDispatch } from 'react-redux';
 import { setLoader } from '../../Redux/generalSlice';
+import img1 from '../../background-images/movie2.jpg'
 
 
 function Signup() {
@@ -50,13 +51,14 @@ function Signup() {
     } catch (error) {
       console.log(error);
       errorToast('Something went wrong');
+      dispatch(setLoader(false))
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+    <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: `url(${img1})` }}>
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md  transform hover:scale-110 transition-transform duration-300" style={{backgroundImage:`url(${img1})`}}>
+        <h2 className="text-2xl text-white font-bold text-center mb-6">Sign Up</h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col space-y-4">
             <div>
@@ -85,14 +87,14 @@ function Signup() {
             <div>
               <button
                 type="submit"
-                className="w-full bg-black text-white py-2 rounded-lg shadow-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                className="w-full bg-pink-300 text-white py-2 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-110 transition-transform duration-300 "
               >
                 Sign Up
               </button>
             </div>
           </div>
         </form>
-        <p className='font-medium'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login', { replace: true })} >LogIn</i> </p>
+        <p className='font-medium text-white'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login', { replace: true })} >LogIn</i> </p>
       </div>
     </div>
   )

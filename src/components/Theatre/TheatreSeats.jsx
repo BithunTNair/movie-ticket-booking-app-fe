@@ -1,37 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import AxiosInstance from '../../Config/ApiCall';
+import { useParams } from 'react-router-dom';
 
-function TheatreSeats({theatreId}) {
+function TheatreSeats() { // Pass theatreId as a prop
     const [seats, setSeats] = useState([]);
+    const { id } = useParams();
+
     useEffect(() => {
-        getSeats(theatreId)
-    }, []);
+        getSeats()
+    }, [id]);
 
-    const getSeats = async (id) => {
-        const theatreSeats = await AxiosInstance({
-            url:  `/users/getseats/${id}`,
-            method: 'GET'
-        });
-        setSeats(theatreSeats.data.seats);
-
-
-    }
-
+    const getSeats = async () => {
+        try {
+            const theatreSeats = await AxiosInstance({
+                url: `/users/getseats/${id}`, // Pass the theatreId in the URL
+                method: 'GET',
+            });
+            setSeats(theatreSeats.data.seats);
+        } catch (error) {
+            console.error("Error fetching seats:", error);
+        }
+    };
 
     return (
-
         <>
-            <div className="grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-2 p-4">
-               
-                {seats.map((element, index) => {
-                    return <div key={index} className="flex justify-center items-center w-10 h-10 bg-gray-200 border border-gray-300 rounded-lg shadow hover:bg-yellow-500 hover:text-white transition-all duration-300 cursor-pointer">
+            <div className=" min-h-screen grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-7 p-2 bg-red-300">
+                {seats.map((element, index) => (
+                    <div
+                        key={index}
+                        className="ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 border border-gray-300 rounded-lg shadow hover:border-gray-950 hover:bg-yellow-500 hover:text-white transform hover:scale-125  transition-all duration-300 cursor-pointer"
+                    >
                         {element.seatNumber}
                     </div>
-                })}
+                ))}
             </div>
 
         </>
-    )
+    );
 }
 
-export default TheatreSeats
+export default TheatreSeats;
