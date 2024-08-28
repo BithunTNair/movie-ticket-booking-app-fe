@@ -85,7 +85,6 @@ function AddTheatre() {
                     </option>
                   })}
                 </select>
-                <p className='text-red-400'>{errors.genre && 'Genre is required'}</p>
               </div>
               <div>
                 <Input type={'text'} placeholder={'Number of Seats'}{...register("seats")} />

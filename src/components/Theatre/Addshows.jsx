@@ -1,37 +1,61 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useForm } from "react-hook-form"
 import AxiosInstance from '../../Config/ApiCall';
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { errorToast, successToast } from '../../Plugins/Toast';
 import { setLoader } from '../../Redux/generalSlice';
-import Input from '../../components/common/Input'
+import Input from '../../components/common/Input';
+import { TIMINGS } from '../constants/Timings';
 
 function Addshows() {
-    const schema = yup
-    .object({
-      name: yup.string().required(),
-      location: yup.string().required(),
-      movie: yup.string().required(),
+  const { id } = useParams()
+  const [movies, setMovies] = useState([]);
+  useEffect(() => {
+    getMovies()
+  }, []);
+  const getMovies = async () => {
+    try {
+      const movie = await AxiosInstance({
+        url: '/users/movielist',
+        method: 'GET'
+      });
+      setMovies(movie.data.movies);
+      console.log(movies);
+    } catch (error) {
+      console.log(error);
 
-    })
-    .required()
+    }
+
+  }
+  // const schema = yup.object({
+  //   showtimeDate: yup
+  //     .date()
+  //     .required(),
+  //     // .min(new Date(), 'Date cannot be in the past'),
+  //   movieId: yup.string().required(),
+  //   time: yup.string().required(),
+  //   seats: yup.number().required().positive().integer(),
+  // }).required();
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm();
   const onSubmit = async (data) => {
+    console.log(data);
+
     try {
       AxiosInstance({
-        url: '/admin/addtheatre',
+        url: `/admin/addshows/${id}`,
         method: 'POST',
         data: data,
       }).then((response) => {
-        successToast('Theatre was added successfully');
+        successToast('show is added successfully');
 
 
       })
@@ -42,51 +66,53 @@ function Addshows() {
   };
 
   return (
-   <>
-     <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat ">
+    <>
+      <div className="flex min-h-screen items-center justify-center bg-gray-100 bg-cover bg-center bg-no-repeat ">
         <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center mb-6">Add Movie</h2>
+          <h2 className="text-2xl font-bold text-center mb-6">Add Shows</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col space-y-4">
               <div>
-                <Input type={'text'} placeholder={'Movie Title'} {...register("title")} />
-                <p className='text-red-400'>{errors.title && 'Title is required'}</p>
-              </div>
-
-              <div>
-                <Input type={'text'} placeholder={'Description'}{...register("description")} />
-                <p className='text-red-400'>{errors.description && 'Description is required'}</p>
+                <Input type={'date'} {...register("showtimeDate")} />
+                <p className='text-red-400'>{errors.showtimeDate && 'Date is required'}</p>
               </div>
               <div>
-                <Input type={'text'} placeholder={'Genre'}{...register("genre")} />
-                <p className='text-red-400'>{errors.genre && 'Genre is required'}</p>
+                <select {...register('movieId')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option className='font-semibold'>select movie</option>
+                  {movies.map((element, index) => {
+                    return <option className='font-semibold' key={index} value={element._id}>
+                      {element.title}
+                    </option>
+                  })}
+                </select>
               </div>
               <div>
-                <Input type={'text'} placeholder={'Director'}{...register("director")} />
-                <p className='text-red-400'>{errors.director && 'Director name is required'}</p>
+                <select {...register('time')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option className='font-semibold'>Select Time</option>
+                  {TIMINGS.map((element, index) => {
+                    return <option className='font-semibold' key={index} >
+                      {element.name}
+                    </option>
+                  })}
+                </select>
               </div>
-
               <div>
-                <Input type={'number'} placeholder={'Rating'}{...register("rating")} />
-                <p className='text-red-400'>{errors.rating && 'Rating is required'}</p>
-              </div>
-              <div>
-                <Input type={'file'} placeholder={'Poster'}{...register("poster")} />
-                <p className='text-red-400'>{errors.poster && 'Poster is required'}</p>
+                <Input type={'text'} placeholder={'Number of Seats'}{...register("seats")} />
+                <p className='text-red-400'>{errors.seats && 'seat number is required'}</p>
               </div>
               <div>
                 <button
                   type="submit"
                   className="w-full bg-black text-white py-2 rounded-lg shadow-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
-                  Add Movie
+                  Create Show
                 </button>
               </div>
             </div>
           </form>
         </div>
       </div>
-   </>
+    </>
   )
 }
 

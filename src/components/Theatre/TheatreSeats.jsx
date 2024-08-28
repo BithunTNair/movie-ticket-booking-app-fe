@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AxiosInstance from '../../Config/ApiCall';
 import { useParams } from 'react-router-dom';
 
-function TheatreSeats() { // Pass theatreId as a prop
+function TheatreSeats() { 
     const [seats, setSeats] = useState([]);
     const { id } = useParams();
 
@@ -13,7 +13,7 @@ function TheatreSeats() { // Pass theatreId as a prop
     const getSeats = async () => {
         try {
             const theatreSeats = await AxiosInstance({
-                url: `/users/getseats/${id}`, // Pass the theatreId in the URL
+                url: `/users/getseats/${id}`, 
                 method: 'GET',
             });
             setSeats(theatreSeats.data.seats);

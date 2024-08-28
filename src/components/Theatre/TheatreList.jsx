@@ -23,6 +23,9 @@ function TheatreList() {
     }
     const handleId = (id) => {
         navigate(`/theatres/theatreseats/${id}`)
+    };
+    const theatreId=(id)=>{
+        navigate(`/theatres/addshows/${id}`)
     }
 
     return (
@@ -40,7 +43,7 @@ function TheatreList() {
                         {/* Theatre Actions */}
                         <div className="flex space-x-3">
                             <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300" onClick={() => handleId(element._id)}>View</button>
-                            {user.role === 1 && <button className="px-4 py-2 text-white bg-yellow-500 rounded-md shadow hover:bg-yellow-600 transition-colors duration-300" onClick={() => navigate('/theatres/addshows')}> Add Shows</button>}
+                            {user.role === 1 && <button className="px-4 py-2 text-white bg-yellow-500 rounded-md shadow hover:bg-yellow-600 transition-colors duration-300" onClick={() =>theatreId(element._id)}> Add Shows</button>}
                         </div>
                     </div>
                 </div>

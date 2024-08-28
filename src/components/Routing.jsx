@@ -22,7 +22,7 @@ function Routing() {
                 <Route path='/movielist' element={<MovieList />} />
                 <Route path='/theatres' element={<TheatrePage />} />
                 <Route path='/theatres/theatreseats/:id' element={<TheatreSeats/>} />
-                <Route path='/theatres/addshows' element={<Addshows/>} />
+                <Route path='/theatres/addshows/:id' element={<Addshows/>} />
                 <Route path='/addmovies' element={<AddMovies />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
             </Routes>
