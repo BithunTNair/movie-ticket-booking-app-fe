@@ -10,6 +10,8 @@ import TheatrePage from '../pages/TheatrePage/TheatrePage'
 import TheatreSeatPage from '../pages/TheatreSeats/TheatreSeatPage'
 import TheatreSeats from './Theatre/TheatreSeats'
 import Addshows from './Theatre/Addshows'
+import MovieShows from './Theatre/MovieShows'
+import DateSelect from './Theatre/DateSelect'
 
 
 function Routing() {
@@ -21,8 +23,9 @@ function Routing() {
                 <Route path='/login' element={<LogIn />} />
                 <Route path='/movielist' element={<MovieList />} />
                 <Route path='/theatres' element={<TheatrePage />} />
-                <Route path='/theatres/theatreseats/:id' element={<TheatreSeats/>} />
-                <Route path='/theatres/addshows/:id' element={<Addshows/>} />
+                <Route path='/theatres/dateselect/:id' element={<DateSelect />} />
+                <Route path='/theatres/dateselect/:id/:date' element={<MovieShows />} />
+                <Route path='/theatres/addshows/:id' element={<Addshows />} />
                 <Route path='/addmovies' element={<AddMovies />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
             </Routes>

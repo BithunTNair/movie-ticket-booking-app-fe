@@ -22,7 +22,7 @@ function TheatreList() {
         setTheatres(theateData.data.theatres)
     }
     const handleId = (id) => {
-        navigate(`/theatres/theatreseats/${id}`)
+        navigate(`/theatres/dateselect/${id}`)
     };
     const theatreId=(id)=>{
         navigate(`/theatres/addshows/${id}`)
