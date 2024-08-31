@@ -4,16 +4,16 @@ import { useParams } from 'react-router-dom';
 
 function TheatreSeats() { 
     const [seats, setSeats] = useState([]);
-    const { id } = useParams();
+    const { showsId } = useParams();
 
     useEffect(() => {
         getSeats()
-    }, [id]);
+    }, [showsId]);
 
     const getSeats = async () => {
         try {
             const theatreSeats = await AxiosInstance({
-                url: `/users/getseats/${id}`, 
+                url: `/users/getseats/${showsId}`, 
                 method: 'GET',
             });
             setSeats(theatreSeats.data.seats);

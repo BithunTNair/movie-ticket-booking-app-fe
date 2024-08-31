@@ -25,6 +25,7 @@ function Routing() {
                 <Route path='/theatres' element={<TheatrePage />} />
                 <Route path='/theatres/dateselect/:id' element={<DateSelect />} />
                 <Route path='/theatres/dateselect/:id/:date' element={<MovieShows />} />
+                <Route path='/theatres/dateselect/:id/:date/:showsid' element={<TheatreSeats />} />
                 <Route path='/theatres/addshows/:id' element={<Addshows />} />
                 <Route path='/addmovies' element={<AddMovies />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
