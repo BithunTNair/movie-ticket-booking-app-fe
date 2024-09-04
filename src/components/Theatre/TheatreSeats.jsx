@@ -9,7 +9,7 @@ function TheatreSeats() {
     const { showsid, id } = useParams();
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [movieId, setMovieId] = useState('');
-    const {user}= useSelector(store=>store.user)
+    const { user } = useSelector(store => store.user)
 
 
 
@@ -91,10 +91,10 @@ function TheatreSeats() {
             return;
         }
 
-        const { amount, id: order_id, currency ,receipt} = result.data;
+        const { amount, id: order_id, currency, receipt } = result.data;
 
         const options = {
-            key:`${import.meta.env.VITE_RP_KEY_ID}`,
+            key: `${import.meta.env.VITE_RP_KEY_ID}`,
             amount: amount.toString(),
             currency: currency,
             name: "Tap Tickets Online",
@@ -108,21 +108,22 @@ function TheatreSeats() {
                     razorpayOrderId: response.razorpay_order_id,
                     razorpaySignature: response.razorpay_signature,
                     receipt,
-                    theatreId:id,
-                    showId:showsid,
-                    movieId: movieId
+                    theatreId: id,
+                    showId: showsid,
+                    movieId: movieId,
+                    seats: selectedSeats
                 };
 
                 const result = await AxiosInstance.post("/payments/verify", data);
 
                 // alert(result.data.msg);
                 successToast('Booking was completed');
-                getSeats();   
+                getSeats();
             },
             prefill: {
                 name: user.firstName,
                 email: user.email,
-                contact:'9999999999',
+                contact: '9999999999',
             },
             // notes: {
             //     address: "Soumya Dey Corporate Office",
@@ -157,7 +158,7 @@ function TheatreSeats() {
                         key={index}
 
                         onClick={() => selectSeats(seat.seatNumber)}
-                        className='ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-200 border border-gray-300 rounded-lg shadow hover:border-gray-950 hover:bg-yellow-500 hover:text-white transform hover:scale-125  transition-all duration-300 cursor-pointer'
+                        className='ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-white border border-green-500 rounded-lg shadow hover:border-green-800 hover:bg-yellow-500 hover:text-white transform hover:scale-125  transition-all duration-300 cursor-pointer'
                     >
 
                         {seat.seatNumber}
