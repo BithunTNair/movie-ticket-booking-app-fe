@@ -51,27 +51,15 @@ function TheatreSeats() {
         console.log(movieId);
 
     }
-    const selectSeats = (seatNumber) => {
-        setSelectedSeats([...selectedSeats, seatNumber]);
-        // setseatisSelected(!seatisSelected)
+    const selectordeSelectSeats = (seatNumber) => {
+        if (selectedSeats.find((number) => number === seatNumber)) {
+            const temp = selectedSeats.filter((number) => number !== seatNumber);
+            setSelectedSeats(temp)
+        } else {
+            setSelectedSeats([...selectedSeats, seatNumber]);
+        }
         console.log(selectedSeats);
-
-
-
     }
-    // function loadScript(src) {
-    //     return new Promise((resolve) => {
-    //         const script = document.createElement("script");
-    //         script.src = src;
-    //         script.onload = () => {
-    //             resolve(true);
-    //         };
-    //         script.onerror = () => {
-    //             resolve(false);
-    //         };
-    //         document.body.appendChild(script);
-    //     });
-    // }
 
     async function displayRazorpay() {
         const res = await loadScript(
@@ -157,12 +145,14 @@ function TheatreSeats() {
                     <div
                         key={index}
 
-                        onClick={() => selectSeats(seat.seatNumber)}
-                        className='ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-white border border-green-500 rounded-lg shadow hover:border-green-800 hover:bg-yellow-500 hover:text-white transform hover:scale-125  transition-all duration-300 cursor-pointer'
+                        onClick={() => selectordeSelectSeats(seat.seatNumber)}
+                        className={`${selectedSeats.find((number) => number === seat.seatNumber)
+                            ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-green-400 border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'
+                            : seat.isBooked
+                                ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-500 border border-green-500 rounded-lg shadow hover:border-green-800 text-white  transform hover:scale-125 transition-all duration-300 cursor-pointer'
+                                : 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-white border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'}`}
                     >
-
                         {seat.seatNumber}
-
                     </div>
                 ))}
                 <div className=''>

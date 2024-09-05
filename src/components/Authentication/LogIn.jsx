@@ -58,7 +58,7 @@ function LogIn() {
   }
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${img1})` }}>
-      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md transform hover:scale-110 transition-transform duration-300" style={{backgroundImage:`url(${img1})`}}>
+      <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md" style={{backgroundImage:`url(${img1})`}}>
         <h2 className="text-2xl font-bold text-center mb-6 text-white">Log In</h2>
         <form onSubmit={handleSubmit(onSubmit)} >
           <div className="flex flex-col space-y-4">
@@ -73,7 +73,7 @@ function LogIn() {
             <div>
               <button
                 type="submit"
-                className="w-full bg-pink-300 text-white py-2 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-110 transition-transform duration-300"
+                className="w-full bg-pink-300 text-white py-2 rounded-lg shadow-md hover:bg-black focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
               >
                 Log In
               </button>
