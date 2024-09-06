@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Theme from './Theme';
 
 function NavbarCom() {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector(store => store.user);
+  
 
 
   return (
     <>
-      <nav className="bg-gray-900 p-4">
+      <nav className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... p-4 ">
         <div className="container mx-auto flex items-center justify-between">
           {/* Brand */}
           <div
             onClick={() => navigate('/')}
-            className="text-white text-2xl font-bold cursor-pointer"
+            className="text-black dark:text-white text-2xl font-bold cursor-pointer"
           >
             TapTickets
           </div>
@@ -25,7 +27,7 @@ function NavbarCom() {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white focus:outline-none"
+              className="text-white dark:text-white focus:outline-none"
             >
               <svg
                 className="w-6 h-6"
@@ -51,25 +53,28 @@ function NavbarCom() {
           >
             <button
               onClick={() => navigate('/movielist')}
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-black dark:text-white  transition-colors"
             >
               Movies
             </button>
             {user.role === 1 && <button
               onClick={() => navigate('/addmovies')}
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-black dark:text-white transition-colors"
             >
               Add Movies
             </button>}
+         
+              <Theme/>
+           
             <button
               onClick={() => navigate('/theatres')}
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-black dark:text-white transition-colors"
             >
               Theatres
             </button>
             {user.role === 1 && <button
               onClick={() => navigate('/addtheatre')}
-              className="text-white hover:text-blue-400 transition-colors"
+              className="text-black dark:text-white transition-colors"
             >
               Add Theatre
             </button>}
@@ -79,9 +84,9 @@ function NavbarCom() {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="text-white hover:text-blue-400 transition-colors focus:outline-none"
+                className="text-white hover:text-white transition-colors focus:outline-none"
               >
-                <span className='font-bold text-3xl' > {user.firstName + ' ' + user.lastName}</span>
+                <span className='font-bold text-3xl text-black dark:text-white' > {user.firstName + ' ' + user.lastName}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AxiosInstance from '../../Config/ApiCall';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { successToast } from '../../Plugins/Toast';
+import { errorToast, successToast } from '../../Plugins/Toast';
 
 function TheatreSeats() {
     const [seats, setSeats] = useState([]);
@@ -123,6 +123,7 @@ function TheatreSeats() {
 
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
+        
     };
     function loadScript(src) {
         return new Promise((resolve) => {

@@ -59,9 +59,9 @@ function AddMovies() {
 
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
-        <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center mb-6">Add Movie</h2>
+      <div className="flex min-h-screen items-center justify-center bg-slate-50 dark:bg-stone-900 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: "" }}>
+        <div className="w-full max-w-md bg-white dark:bg-neutral-800 p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 dark:text-white">Add Movie</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col space-y-4">
               <div>
@@ -93,7 +93,8 @@ function AddMovies() {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-black text-white py-2 rounded-lg shadow-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="w-full   text-white py-2 rounded-lg shadow-md  focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+                  bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 ..."
                 >
                   Add Movie
                 </button>

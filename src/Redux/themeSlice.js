@@ -1,21 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    theme: false
+    theme: () => {
+        return localStorage.getItem('theme') === "dark"
+    }
 
 };
 
 
-const generalSlice = createSlice({
-    name: 'loader',
+const themeSlice = createSlice({
+    name: 'theme',
     initialState: initialState,
     reducers: {
-        setLoader: (state, action) => {
+        setTheme: (state, action) => {
             state.general = action.payload;
         }
     }
 });
 
-export const { setLoader } = generalSlice.actions;
+export const { setTheme } = themeSlice.actions;
 
-export default generalSlice.reducer;
+export default themeSlice.reducer;

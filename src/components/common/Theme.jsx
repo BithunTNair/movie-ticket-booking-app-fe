@@ -13,13 +13,14 @@ function Theme() {
             localStorage.setItem('theme', 'light')
         }
     }, [darkMode]);
-  return (
-    <div>
-            <button >ChangeTheme</button>
-          
-            <div className='dark:bg-blue-600 w-44 h-44 bg-slate-800'></div>
+    const toggleTheme = () => {
+        setDarkMode(!darkMode);
+    };
+    return (
+        <div>
+            <button className='text-black dark:text-white font-bold' onClick={toggleTheme} >{darkMode ? ' Dark theme' :' Light theme'}</button>
         </div>
-  )
+    )
 }
 
 export default Theme
