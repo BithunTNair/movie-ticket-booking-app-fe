@@ -6,20 +6,60 @@ import { errorToast, successToast } from '../../Plugins/Toast';
 
 function TheatreSeats() {
     const [seats, setSeats] = useState([]);
-    const { showsid, id } = useParams();
+    const { showsid, id, date } = useParams();
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [movieId, setMovieId] = useState('');
-    const { user } = useSelector(store => store.user)
-
-
-
-    // const [seatisSelected, setseatisSelected] = useState(false)
+    const [modal, setModal] = useState(true);
+    const [theatre, setTheatre] = useState([]);
+    const [movieData, setMovieData] = useState([]);
+    const[showtime,setShowtime]=useState([]);
+    const { user } = useSelector(store => store.user);
 
 
     useEffect(() => {
         getSeats();
         getMovieforThisShow();
     }, [showsid]);
+
+    useEffect(() => {
+        getTheatre();
+        getShowtime()
+
+    }, []);
+    console.log(date);
+
+    const getTheatre = async () => {
+        try {
+            const response = await AxiosInstance({
+                url: '/users/singletheatre',
+                method: 'GET',
+                params: {
+                    theatreId: id
+                }
+            });
+            setTheatre(response.data.theatre);
+
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    };
+
+    const getMoviebyId = async (movieRes) => {
+        try {
+            const response = await AxiosInstance({
+                url: '/users/singlemovie',
+                method: 'GET',
+                params: {
+                    movieDataId: movieRes
+                }
+            });
+            setMovieData(response.data.movie);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const getSeats = async () => {
         try {
@@ -33,10 +73,28 @@ function TheatreSeats() {
             setSeats(seatsArray)
 
         } catch (error) {
-            console.error("Error fetching seats:", error);
+            console.log(error);
+
         }
 
     };
+    const getShowtime = async () => {
+        try {
+            const show = await AxiosInstance({
+                url: '/users/displayshowtime',
+                method: 'GET',
+                params: {
+                    showId: showsid
+                }
+            });
+            setShowtime(show.data.message);
+            console.log(showtime);
+            
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
     const getMovieforThisShow = async () => {
         const movieData = await AxiosInstance({
             url: '/users/getmoviebyshow',
@@ -49,8 +107,10 @@ function TheatreSeats() {
         const movieRes = preMovieid[0].movie
         setMovieId(movieRes);
         console.log(movieId);
+        getMoviebyId(movieRes);
 
-    }
+    };
+
     const selectordeSelectSeats = (seatNumber) => {
         if (selectedSeats.find((number) => number === seatNumber)) {
             const temp = selectedSeats.filter((number) => number !== seatNumber);
@@ -123,7 +183,7 @@ function TheatreSeats() {
 
         const paymentObject = new window.Razorpay(options);
         paymentObject.open();
-        
+
     };
     function loadScript(src) {
         return new Promise((resolve) => {
@@ -157,9 +217,51 @@ function TheatreSeats() {
                     </div>
                 ))}
                 <div className=''>
-                    <button className='bg-green-400 border rounded text-white p-4 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={displayRazorpay} >Book Now</button>
+                    <button className='bg-green-400 border rounded text-white p-4 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={() => setModal(true)} >Book Now</button>
                 </div>
             </div>
+            {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4">
+                <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
+                    <button
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        onClick={() => setModal(false)}
+                    >
+                        {/* Close Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                    <div className="p-6">
+                        {/* Modal Content */}
+                        <h2 className="text-xl font-semibold mb-4 text-black"> Date :{date} </h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black"> Theatre Name : {theatre.name}</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black"> Show Time : {showtime.time}</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black"> Movie Title : {movieData.title}</h2>
+                        <img src={movieData.poster} alt="" className='h-56' />
+                        <h2 className="text-xl font-semibold mb-4"> Booked By : {user.firstName+' '+user.lastName}</h2>
+                        <p className="text-gray-700 mb-6">This is the confirmation window before the payment</p>
+                        {/* Close Button */}
+                        <button
+                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
+                            onClick={displayRazorpay}
+                        >
+                            Book
+                        </button>
+
+                    </div>
+                </div>
+            </div>}
 
         </>
     );
