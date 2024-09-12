@@ -10,6 +10,8 @@ function ReviewComponent() {
     const { user } = useSelector(store => store.user);
     const userId = user._id;
     const [reviews, setReviews] = useState([]);
+    const [modal, setModal] = useState(false);
+    const [reviewid, setReviewid] = useState('');
     useEffect(() => {
         getReviews()
     }, []);
@@ -24,6 +26,20 @@ function ReviewComponent() {
             const review = response.data.reviews;
             const reversedArray = review.reverse()
             setReviews(reversedArray)
+
+        } catch (error) {
+            console.log(error);
+
+        }
+    };
+    const deleteReview = async (id) => {
+        try {
+            const reviewId = id;
+            await AxiosInstance({
+                url: `/users/deletereviews/${reviewId}`,
+                method: 'DELETE'
+            });
+            getReviews()
 
         } catch (error) {
             console.log(error);
@@ -52,6 +68,26 @@ function ReviewComponent() {
                 data: data,
             });
             getReviews()
+        } catch (error) {
+            console.log(error);
+
+        }
+    };
+    const getId = (revid) => {
+        setReviewid(revid);
+        console.log(reviewid);
+        
+        setModal(true)
+    }
+    const updateReview = async () => {
+        try {
+            await AxiosInstance({
+                url: `/users/updatereviews/${reviewid}`,
+                method: 'PUT'
+            });
+            getReviews();
+            setModal(false);
+            
         } catch (error) {
             console.log(error);
 
@@ -107,7 +143,10 @@ function ReviewComponent() {
                                     <p className="text-black dark:text-white font-thin mt-5">
                                         {element.review}
                                     </p>
-                                    <button className='bg-yellow-200'>Edit</button>
+                                    {element.user._id === user._id && <div >
+                                        <button className='bg-yellow-200 hover:bg-yellow-500 text-white  dark:text-black font-bold py-2 px-4 rounded ' onClick={() => getId(element._id)} >Edit</button>
+                                        <button className='bg-red-500 mt-5 ml-5  hover:bg-red-700 text-white dark:text-black font-bold py-2 px-4 rounded' onClick={() => deleteReview(element._id)}>Delete</button>
+                                    </div>}
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <span className="text-yellow-400 text-lg">&#9733;</span>
@@ -120,6 +159,42 @@ function ReviewComponent() {
                     </div>
                 })}
             </div>
+            {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4 w-full">
+                <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
+                    <button
+                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        onClick={() => setModal(false)}
+                    >
+                        {/* Close Icon */}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth="2"
+                            stroke="currentColor"
+                            className="w-6 h-6"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                    <div className="p-6">
+                        {/* Modal Content */}
+                       
+                        {/* Close Button */}
+                        <button
+                            className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 focus:outline-none"
+                            onClick={updateReview}
+                        >
+                            Update
+                        </button>
+
+                    </div>
+                </div>
+            </div>}
         </div>
 
     )
