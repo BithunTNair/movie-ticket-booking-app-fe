@@ -78,7 +78,13 @@ function NavbarCom() {
             >
               Add Theatre
             </button>}
-
+ 
+            <button
+              onClick={() => navigate('/reviews&ratings')}
+              className="text-black dark:text-white transition-colors"
+            >
+             Reviews & Ratings
+            </button>
 
             {/* Dropdown Menu */}
             <div className="relative">
