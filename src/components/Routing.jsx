@@ -15,6 +15,7 @@ import DateSelect from './Theatre/DateSelect'
 import AddMoviePage from '../pages/Movies/AddMoviePage'
 import ReviewPage from '../pages/ReviewPage/ReviewPage'
 import TheatrebyMovie from './Theatre/TheatrebyMovie'
+import DatePicker from './Extra/DatePicker'
 
 
 function Routing() {
@@ -33,6 +34,8 @@ function Routing() {
                 <Route path='/addmovies' element={<AddMoviePage />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
                 <Route path='/reviews&ratings' element={<ReviewPage />} />
+                <Route path='/theatrebymovie/:movieid' element={<TheatrebyMovie/>} />
+                <Route path='/theatrebymovie/dateselect/:movieid/dateselect/:theatreid' element={<DatePicker/>} />
               
             </Routes>
 

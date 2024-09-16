@@ -3,7 +3,10 @@ import { useNavigate } from 'react-router-dom'
 
 
 function Card({ moviedata }) {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const getTheatre = (movieid) => {
+        navigate(`/theatrebymovie/${movieid}`)
+    }
     return (
         <>
             <div className="max-w-xs rounded-lg overflow-hidden shadow-lg cursor-pointer bg-white hover:bg-blue-400 transform hover:scale-105 transition-transform duration-300">
@@ -30,7 +33,7 @@ function Card({ moviedata }) {
                 {/* Action Button */}
                 <div className="p-4 border-t border-gray-200 hover:bg-cyan-500">
                     <button className="w-full text-center bg-green-600 text-white py-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-300"
-                      >
+                        onClick={() => getTheatre(moviedata._id)}  >
                         Book Now
                     </button>
                 </div>

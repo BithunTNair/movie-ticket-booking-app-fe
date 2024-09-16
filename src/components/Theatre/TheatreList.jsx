@@ -8,7 +8,7 @@ import { setLoader } from '../../Redux/generalSlice';
 function TheatreList() {
 const dispatch=useDispatch()
     const { user } = useSelector(store => store.user);
-    const [modal, setModal] = useState(false)
+    // const [modal, setModal] = useState(false)
     const navigate = useNavigate()
     const [theatres, setTheatres] = useState([]);
     useEffect(() => {
@@ -58,43 +58,7 @@ const dispatch=useDispatch()
                 </div>
 
             })}
-            {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4">
-                <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
-                    <button
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
-                        onClick={() => setModal(false)}
-                    >
-                        {/* Close Icon */}
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth="2"
-                            stroke="currentColor"
-                            className="w-6 h-6"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                            />
-                        </svg>
-                    </button>
-                    <div className="p-6">
-                        {/* Modal Content */}
-                        <h2 className="text-xl font-semibold mb-4">Modal Title</h2>
-                        <p className="text-gray-700 mb-6">This is the content of the modal</p>
-                        {/* Close Button */}
-                        <button
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
-
-                        >
-                            Close
-                        </button>
-                    </div>
-                </div>
-            </div>
-            }
+           
         </>
     )
 }
