@@ -13,7 +13,7 @@ function NavbarCom() {
 
   return (
     <>
-      <nav className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... p-4 ">
+      <nav className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 ... p-4">
         <div className="container mx-auto flex items-center justify-between">
           {/* Brand */}
           <div
@@ -51,6 +51,12 @@ function NavbarCom() {
             className={`${isOpen ? 'block' : 'hidden'
               } md:flex items-center space-x-4`}
           >
+             <button
+              onClick={() => navigate('/home')}
+              className="text-black dark:text-white  transition-colors"
+            >
+              Home
+            </button>
             <button
               onClick={() => navigate('/movielist')}
               className="text-black dark:text-white  transition-colors"

@@ -14,6 +14,7 @@ import MovieShows from './Theatre/MovieShows'
 import DateSelect from './Theatre/DateSelect'
 import AddMoviePage from '../pages/Movies/AddMoviePage'
 import ReviewPage from '../pages/ReviewPage/ReviewPage'
+import TheatrebyMovie from './Theatre/TheatrebyMovie'
 
 
 function Routing() {
@@ -32,6 +33,7 @@ function Routing() {
                 <Route path='/addmovies' element={<AddMoviePage />} />
                 <Route path='/addtheatre' element={<AddTheatre />} />
                 <Route path='/reviews&ratings' element={<ReviewPage />} />
+              
             </Routes>
 
         </div>

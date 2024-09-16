@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import AxiosInstance from '../../Config/ApiCall';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 function ReviewComponent() {
+    const dispatch=useDispatch()
     const { user } = useSelector(store => store.user);
     const userId = user._id;
     const [reviews, setReviews] = useState([]);
@@ -136,7 +137,7 @@ function ReviewComponent() {
                 {reviews.map((element) => {
                     return <div className="mt-8">
 
-                        <div className="bg-gray-100 dark:bg-stone-900 p-4 rounded-lg shadow-md mb-4">
+                        <div className="bg-gray-100 dark:bg-blue-900 p-4 rounded-lg shadow-md mb-4">
                             <div className="flex justify-between items-center">
                                 <div className=''>
                                     <h3 className="fon-bold text-2xl text-black dark:text-stone-50">{element.user.firstName + ' ' + element.user.lastName} </h3>

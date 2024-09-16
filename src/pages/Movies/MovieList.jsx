@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../../components/common/Card'
 import AxiosInstance from '../../Config/ApiCall'
+import NavbarCom from '../../components/common/Navbar';
 
 function MovieList() {
     const [movieBox, setMovieBox] = useState([]);
@@ -21,11 +22,14 @@ function MovieList() {
     }
     return (
         <>
-            <div className=' min-w-screen-sm flex flex-wrap gap-7 ml-10 mt-10 mr-10 justify-between'>
+            <div className='min-w-screen min-h-screen dark:bg-zinc-900 bg-white'>
 
-                {movieBox.map((element,index) => {
-                    return <Card key={index} moviedata={element} />
-                })}
+                <div className=' min-w-screen-sm flex flex-wrap gap-7 mt-10 ml-8 mr-8 justify-between bg-zinc-900'>
+
+                    {movieBox.map((element, index) => {
+                        return <Card key={index} moviedata={element} />
+                    })}
+                </div>
             </div>
         </>
     )

@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import AxiosInstance from '../../Config/ApiCall';
 import { useNavigate, useParams } from 'react-router-dom';
+import NavbarCom from '../common/Navbar';
+import { useDispatch } from 'react-redux';
+import { setLoader } from '../../Redux/generalSlice';
 
 function MovieShows() {
     const [filteredShows, setFilteredShows] = useState([]);
     const { date, id } = useParams();
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const dispatch=useDispatch()
 
     useEffect(() => {
 
@@ -13,6 +17,8 @@ function MovieShows() {
     }, []);
 
     const getAllShows = async () => {
+      try {
+        dispatch(setLoader(true))
         const movieshows = await AxiosInstance({
             url: '/users/getshowsbydate',
             method: "GET",
@@ -23,7 +29,12 @@ function MovieShows() {
 
 
         const filtered = movieshows.data.shows.filter((element) => element._id === id);
-        setFilteredShows(filtered)
+        setFilteredShows(filtered);
+        dispatch(setLoader(false))
+      } catch (error) {
+        console.log(error);
+        dispatch(setLoader(false))
+      }
 
     };
     const handleId = (e) => {
@@ -33,10 +44,11 @@ function MovieShows() {
 
     return (
         <>
-            <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6"  >
+        <NavbarCom/>
+            <div className="min-h-screen bg-gray-100 dark:bg-zinc-950 flex flex-col items-center p-6"  >
                 <div className="w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-center mb-4">Movie Shows</h2>
-                    <h2 className="text-2xl font-bold text-center mb-4">{date}</h2>
+                    <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">Movie Shows</h2>
+                    <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">{date}</h2>
 
                     {/* <input
                         type="date"
@@ -50,10 +62,10 @@ function MovieShows() {
                     </button> */}
                 </div>
                 {filteredShows.map((element, index) => {
-                    return <div className="w-full max-w-4xl bg-white rounded-lg shadow-md p-6 mt-8" key={index} >
+                    return <div className="w-full max-w-4xl bg-white dark:bg-zinc-800 rounded-lg shadow-md p-6 mt-8" key={index} >
                         <div className="flex justify-between">
                             <div className="p-4 border border-gray-200 rounded-lg shadow-sm">
-                                <h3 className="text-xl font-semibold">{element.showTimes.time} </h3>
+                                <h3 className="text-xl font-semibold text-black dark:text-white">{element.showTimes.time} </h3>
                                 <p className="text-gray-600">{''} </p>
                             </div>
                             <button className='bg-green-400 border rounded text-white p-4 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={handleId} value={element.showTimes._id} >Book Now</button>

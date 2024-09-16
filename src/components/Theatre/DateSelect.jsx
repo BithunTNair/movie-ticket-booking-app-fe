@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import NavbarCom from '../common/Navbar';
 
 function DateSelect() {
     const [inputDate, setInputDate] = useState('');
@@ -7,9 +8,10 @@ function DateSelect() {
     const { id } = useParams()
     return (
         <>
-            <div className="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+            <NavbarCom/>
+            <div className="min-h-screen bg-gray-100  dark:bg-zinc-950 flex flex-col items-center p-6">
                 <div className="w-full max-w-md">
-                    <h2 className="text-2xl font-bold text-center mb-4">Movie Shows</h2>
+                    <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">Select a date for getting shows</h2>
                     <input
                         type="date"
                         className="w-full p-3 border border-gray-300 rounded-lg mb-4"

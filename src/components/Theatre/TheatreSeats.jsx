@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import AxiosInstance from '../../Config/ApiCall';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { errorToast, successToast } from '../../Plugins/Toast';
+import NavbarCom from '../common/Navbar';
+import { setLoader } from '../../Redux/generalSlice';
 
 function TheatreSeats() {
+    const dispatch=useDispatch()
     const [seats, setSeats] = useState([]);
     const { showsid, id, date } = useParams();
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [movieId, setMovieId] = useState('');
-    const [modal, setModal] = useState(true);
+    const [modal, setModal] = useState(false);
     const [theatre, setTheatre] = useState([]);
     const [movieData, setMovieData] = useState([]);
     const[showtime,setShowtime]=useState([]);
@@ -63,6 +66,7 @@ function TheatreSeats() {
 
     const getSeats = async () => {
         try {
+            dispatch(setLoader(true))
             const response = await AxiosInstance({
                 url: `/users/getseatsbyshow/${showsid}`,
                 method: 'GET',
@@ -70,11 +74,12 @@ function TheatreSeats() {
 
             const movieSeats = response.data.movieseats;
             const seatsArray = movieSeats[0].getseats;
-            setSeats(seatsArray)
+            setSeats(seatsArray);
+            dispatch(setLoader(false))
 
         } catch (error) {
             console.log(error);
-
+            dispatch(setLoader(false))
         }
 
     };
@@ -167,6 +172,8 @@ function TheatreSeats() {
                 // alert(result.data.msg);
                 successToast('Booking was completed');
                 getSeats();
+                setSelectedSeats([]);
+                setModal(false)
             },
             prefill: {
                 name: user.firstName,
@@ -201,7 +208,8 @@ function TheatreSeats() {
 
     return (
         <>
-            <div className=" min-h-screen grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-7 p-2 bg-white">
+        <NavbarCom/>
+            <div className=" min-h-screen grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-7 p-2 bg-white dark:bg-zinc-900">
                 {seats.map((seat, index) => (
                     <div
                         key={index}
@@ -210,20 +218,20 @@ function TheatreSeats() {
                         className={`${selectedSeats.find((number) => number === seat.seatNumber)
                             ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-green-400 border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'
                             : seat.isBooked
-                                ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-500 border border-green-500 rounded-lg shadow hover:border-green-800 text-white  transform hover:scale-125 transition-all duration-300 cursor-pointer'
+                                ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-500 dark:bg-red-500  dark:text-black border border-green-500 dark:border-white rounded-lg shadow hover:border-green-800 text-white  transform hover:scale-125 transition-all duration-300 cursor-pointer'
                                 : 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-white border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'}`}
                     >
                         {seat.seatNumber}
                     </div>
                 ))}
                 <div className=''>
-                    <button className='bg-green-400 border rounded text-white p-4 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={() => setModal(true)} >Book Now</button>
+                    <button className=' bg-green-400 border rounded text-white dark:text-black font-semibold p-2 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={() => setModal(true)} >Book Now</button>
                 </div>
             </div>
             {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4">
-                <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
+                <div className="relative bg-white dark:bg-zinc-900 rounded-lg shadow-lg w-full max-w-md mx-auto">
                     <button
-                        className="absolute top-2 right-2 text-gray-600 hover:text-gray-800"
+                        className="absolute top-2 right-2 text-gray-600 dark:text-white hover:text-gray-800"
                         onClick={() => setModal(false)}
                     >
                         {/* Close Icon */}
@@ -244,13 +252,14 @@ function TheatreSeats() {
                     </button>
                     <div className="p-6">
                         {/* Modal Content */}
-                        <h2 className="text-xl font-semibold mb-4 text-black"> Date :{date} </h2>
-                        <h2 className="text-xl font-semibold mb-4 text-black"> Theatre Name : {theatre.name}</h2>
-                        <h2 className="text-xl font-semibold mb-4 text-black"> Show Time : {showtime.time}</h2>
-                        <h2 className="text-xl font-semibold mb-4 text-black"> Movie Title : {movieData.title}</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black dark:text-white"> Date :{date} </h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black dark:text-white"> Theatre Name : {theatre.name}</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black dark:text-white"> Show Time :{showtime[0].time }</h2>
+                        <h2 className="text-xl font-semibold mb-4 text-black dark:text-white"> Movie Title : {movieData.title}</h2>
                         <img src={movieData.poster} alt="" className='h-56' />
-                        <h2 className="text-xl font-semibold mb-4"> Booked By : {user.firstName+' '+user.lastName}</h2>
-                        <p className="text-gray-700 mb-6">This is the confirmation window before the payment</p>
+                        <h2 className="text-xl font-semibold mb-4 dark:text-white"> User : {user.firstName+' '+user.lastName}</h2>
+                        <h2 className="text-xl font-semibold mb-4 dark:text-white"> Selected Seats : {selectedSeats.length>0? selectedSeats.join(', '):"No seats are selected"}</h2>
+                        <p className="text-gray-700 mb-6 dark:text-white">This is the confirmation window before the payment</p>
                         {/* Close Button */}
                         <button
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
