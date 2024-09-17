@@ -5,7 +5,7 @@ import NavbarCom from '../common/Navbar';
 function DatePicker() {
     const [inputDate, setInputDate] = useState('');
     const navigate = useNavigate();
-    const { id } = useParams()
+    const { theatreid ,movieid} = useParams()
     return (
         <>
             <NavbarCom/>
@@ -18,7 +18,7 @@ function DatePicker() {
                         onChange={(e) => setInputDate(e.target.value)}
                     />
                     <button className="w-full p-3 mt-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none transform hover:scale-105 transition-transform duration-200"
-                        onClick={() => navigate(`/theatrebymovie/dateselect/${id}/${inputDate}`)}
+                        onClick={() => navigate(`/theatrebymovie/${movieid}/${theatreid}/${inputDate}`)}
                     >
                         Get Shows Here
                     </button>

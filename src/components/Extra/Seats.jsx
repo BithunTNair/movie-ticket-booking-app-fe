@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import AxiosInstance from '../../Config/ApiCall';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { errorToast, successToast } from '../../Plugins/Toast';
-import NavbarCom from '../common/Navbar';
+import { useParams } from 'react-router-dom';
 import { setLoader } from '../../Redux/generalSlice';
+import AxiosInstance from '../../Config/ApiCall';
+import NavbarCom from '../common/Navbar';
+import { successToast } from '../../Plugins/Toast';
 
-function TheatreSeats() {
+function Seats() {
     const dispatch = useDispatch()
     const [seats, setSeats] = useState([]);
-    const { showsid, id, date } = useParams();
+    const { showsid, theatreid, date ,movieid} = useParams();
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [movieId, setMovieId] = useState('');
     const [modal, setModal] = useState(false);
@@ -17,8 +17,7 @@ function TheatreSeats() {
     const [movieData, setMovieData] = useState([]);
     const [showtime, setShowtime] = useState([]);
     const { user } = useSelector(store => store.user);
-
-
+    
     useEffect(() => {
         getSeats();
         getMovieforThisShow();
@@ -29,7 +28,6 @@ function TheatreSeats() {
         getShowtime()
 
     }, []);
-    console.log(date);
 
     const getTheatre = async () => {
         try {
@@ -37,7 +35,7 @@ function TheatreSeats() {
                 url: '/users/singletheatre',
                 method: 'GET',
                 params: {
-                    theatreId: id
+                    theatreId: theatreid
                 }
             });
             setTheatre(response.data.theatre);
@@ -49,13 +47,13 @@ function TheatreSeats() {
         }
     };
 
-    const getMoviebyId = async (movieRes) => {
+    const getMoviebyId = async () => {
         try {
             const response = await AxiosInstance({
                 url: '/users/singlemovie',
                 method: 'GET',
                 params: {
-                    movieDataId: movieRes
+                    movieDataId:movieid
                 }
             });
             setMovieData(response.data.movie);
@@ -136,7 +134,7 @@ function TheatreSeats() {
             return;
         }
 
-        const result = await AxiosInstance.post("/payments/orders", { showId: showsid, seats: selectedSeats, theatreId: id, movieId: movieId });
+        const result = await AxiosInstance.post("/payments/orders", { showId: showsid, seats: selectedSeats, theatreId: theatreid, movieId: movieid });
         console.log(result);
 
         if (!result) {
@@ -161,9 +159,9 @@ function TheatreSeats() {
                     razorpayOrderId: response.razorpay_order_id,
                     razorpaySignature: response.razorpay_signature,
                     receipt,
-                    theatreId: id,
+                    theatreId: theatreid,
                     showId: showsid,
-                    movieId: movieId,
+                    movieId: movieid,
                     seats: selectedSeats
                 };
 
@@ -173,7 +171,7 @@ function TheatreSeats() {
                 successToast('Booking was completed');
                 getSeats();
                 setSelectedSeats([]);
-                setModal(false)
+                setModal(false);
             },
             prefill: {
                 name: user.firstName,
@@ -206,9 +204,9 @@ function TheatreSeats() {
         });
     }
 
-    return (
-        <>
-            <NavbarCom />
+  return (
+    <>
+      <NavbarCom/>
             <div className=" min-h-screen grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-7 p-2 bg-white dark:bg-zinc-900">
                 {seats.map((seat, index) => (
                     <div
@@ -271,9 +269,8 @@ function TheatreSeats() {
                     </div>
                 </div>
             </div>}
-
-        </>
-    );
+    </>
+  )
 }
 
-export default TheatreSeats;
+export default Seats

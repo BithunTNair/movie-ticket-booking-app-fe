@@ -16,6 +16,8 @@ import AddMoviePage from '../pages/Movies/AddMoviePage'
 import ReviewPage from '../pages/ReviewPage/ReviewPage'
 import TheatrebyMovie from './Theatre/TheatrebyMovie'
 import DatePicker from './Extra/DatePicker'
+import ShowTimes from './Extra/ShowTimes'
+import Seats from './Extra/Seats'
 
 
 function Routing() {
@@ -35,7 +37,10 @@ function Routing() {
                 <Route path='/addtheatre' element={<AddTheatre />} />
                 <Route path='/reviews&ratings' element={<ReviewPage />} />
                 <Route path='/theatrebymovie/:movieid' element={<TheatrebyMovie/>} />
-                <Route path='/theatrebymovie/dateselect/:movieid/dateselect/:theatreid' element={<DatePicker/>} />
+                <Route path='/theatrebymovie/:movieid/:theatreid' element={<DatePicker/>} />
+                <Route path='/theatrebymovie/:movieid/:theatreid/:date' element={<ShowTimes/>} />
+                <Route path='/theatrebymovie/:movieid/:theatreid/:date/:showsid' element={<Seats/>} />
+                <Route path='/theatrebymovie/:movieid/addshows/:id' element={<Addshows/>} />
               
             </Routes>
 

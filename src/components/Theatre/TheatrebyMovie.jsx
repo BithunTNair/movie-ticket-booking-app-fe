@@ -6,7 +6,7 @@ import { setLoader } from '../../Redux/generalSlice';
 
 function TheatrebyMovie() {
     const dispatch = useDispatch();
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [theatres, setTheatres] = useState([]);
     const [filteredTheatre, setFilteredTheatre] = useState([]);
     const { movieid } = useParams();
@@ -37,8 +37,11 @@ function TheatrebyMovie() {
             setFilteredTheatre(filter);
         }
     }, [theatres, movieid]);
-    const handleId=(id)=>{
-navigate(`/theatrebymovie/${movieid}/${id}`)
+    const handleId = (id) => {
+        navigate(`/theatrebymovie/${movieid}/${id}`)
+    };
+    const addshows=(id)=>{
+        navigate(`/theatrebymovie/${movieid}/addshows/${id}`)
     }
     return (
         <>
@@ -54,8 +57,8 @@ navigate(`/theatrebymovie/${movieid}/${id}`)
                         </div>
                         {/* Theatre Actions */}
                         <div className="flex space-x-3">
-                            <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300" onClick={()=>handleId(theatre._id)} >View</button>
-                            {user.role === 1 && <button className="px-4 py-2 text-white bg-yellow-500 rounded-md shadow hover:bg-yellow-600 transition-colors duration-300" > Add Shows</button>}
+                            <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300" onClick={() => handleId(theatre._id)} >View</button>
+                            {user.role === 1 && <button className="px-4 py-2 text-white bg-yellow-500 rounded-md shadow hover:bg-yellow-600 transition-colors duration-300" onClick={()=>addshows(theatre._id)} > Add Shows</button>}
                         </div>
                     </div>
                 </div>
