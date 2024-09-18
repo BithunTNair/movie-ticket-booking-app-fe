@@ -39,7 +39,7 @@ function TheatreList() {
 
     return (
         <>
-            <div className='w-screen bg-black min-h-screen'>
+            <div className=' bg-black min-h-screen'>
                 {theatres.map((element, index) => {
 
                     return <div className="flex flex-col space-y-6 p-4 bg-gray-100 dark:bg-blue-800 rounded-lg shadow-lg transform hover:scale-95 transition-transform duration-300 cursor-pointer hover:bg-indigo-300" key={index}>
@@ -54,7 +54,10 @@ function TheatreList() {
                             <div className="flex space-x-3">
                                 <button className="px-4 py-2 text-white bg-green-500 rounded-md shadow hover:bg-green-600 transition-colors duration-300" onClick={() => handleId(element._id)}>View</button>
                                 {user.role === 1 && <button className="px-4 py-2 text-white bg-yellow-500 rounded-md shadow hover:bg-yellow-600 transition-colors duration-300" onClick={() => theatreId(element._id)}> Add Shows</button>}
+                                {user.role === 1 && <button className="px-4 py-2 text-white bg-red-500 rounded-md shadow hover:bg-red-600 transition-colors duration-300" onClick={() => theatreId(element._id)}> Remove all Shows</button>}
                             </div>
+
+                           
                         </div>
                     </div>
 

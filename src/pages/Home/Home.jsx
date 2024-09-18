@@ -11,19 +11,19 @@ function Home() {
   const { user } = useSelector(store => store.user);
   const [movieBox, setMovieBox] = useState([]);
   useEffect(() => {
-      getAllMovies()
+    getAllMovies()
   }, [])
   const getAllMovies = async () => {
-      try {
-          const movie = await AxiosInstance({
-              url: '/users/movielist',
-              method: 'GET'
-          })
-          setMovieBox(movie.data.movies);
-      } catch (error) {
-          console.log(error);
+    try {
+      const movie = await AxiosInstance({
+        url: '/users/movielist',
+        method: 'GET'
+      })
+      setMovieBox(movie.data.movies);
+    } catch (error) {
+      console.log(error);
 
-      }
+    }
   }
   return (
     <div>
@@ -35,16 +35,16 @@ function Home() {
         <p className='font-bold text-4xl dark:text-white justify-center mt-6 ml-5'>Book Your Tickets</p>
         <div className='min-w-screen min-h-screen dark:bg-zinc-900 bg-white'>
 
-<div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between '>
+          <div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between mt-5 '>
 
-    {movieBox.map((element, index) => {
-        return <Card key={index} moviedata={element} />
-    })}
-</div>
-</div>
+            {movieBox.map((element, index) => {
+              return <Card key={index} moviedata={element} />
+            })}
+          </div>
+        </div>
       </div>
       <div>
-        <Footer/>
+        <Footer />
       </div>
 
 

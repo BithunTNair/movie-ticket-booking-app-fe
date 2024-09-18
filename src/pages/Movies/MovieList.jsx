@@ -6,7 +6,7 @@ import NavbarCom from '../../components/common/Navbar';
 function MovieList() {
     const [movieBox, setMovieBox] = useState([]);
     useEffect(() => {
-        getAllMovies()
+        getAllMovies();
     }, [])
     const getAllMovies = async () => {
         try {
@@ -22,10 +22,10 @@ function MovieList() {
     }
     return (
         <>
-        <NavbarCom/>
+            <NavbarCom />
             <div className='min-w-screen min-h-screen dark:bg-zinc-900 bg-white'>
 
-                <div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between '>
+                <div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between mt-5'>
 
                     {movieBox.map((element, index) => {
                         return <Card key={index} moviedata={element} />

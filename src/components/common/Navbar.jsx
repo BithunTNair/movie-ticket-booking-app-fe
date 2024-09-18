@@ -98,7 +98,7 @@ function NavbarCom() {
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                 className="text-white hover:text-white transition-colors focus:outline-none"
               >
-                <span className='font-bold text-3xl text-black dark:text-white' > {user.firstName + ' ' + user.lastName}</span>
+                <span className='font-bold text-2xl text-white dark:text-black' > {user.firstName + ' ' + user.lastName}</span>
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">

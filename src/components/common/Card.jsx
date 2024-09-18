@@ -1,11 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
+import AxiosInstance from '../../Config/ApiCall';
+import { setLoader } from '../../Redux/generalSlice';
 
 
 function Card({ moviedata }) {
     const navigate = useNavigate();
+    const { user } = useSelector(store => store.user);
+    const dispatch = useDispatch();
+    const [movieBox, setMovieBox] = useState([]);
     const getTheatre = (movieid) => {
         navigate(`/theatrebymovie/${movieid}`)
+    };
+
+    const getAllMovies = async () => {
+        try {
+            const movie = await AxiosInstance({
+                url: '/users/movielist',
+                method: 'GET'
+            })
+            setMovieBox(movie.data.movies);
+        } catch (error) {
+            console.log(error);
+
+        }
+    }
+    const removeMovie = (movieId) => {
+        try {
+            dispatch(setLoader(true))
+            AxiosInstance({
+                url: `admin/deletemovie/${movieId}`,
+                method: 'DELETE'
+            });
+            dispatch(setLoader(false));
+            getAllMovies()
+        } catch (error) {
+            console.log(error);
+
+        }
     }
     return (
         <>
@@ -31,11 +64,15 @@ function Card({ moviedata }) {
             </div> */}
 
                 {/* Action Button */}
-                <div className="p-4 border-t border-gray-200 hover:bg-cyan-500">
+                <div className="p-4 border border-gray-200 hover:bg-slate-950 dark:hover:bg-fuchsia-400">
                     <button className="w-full text-center bg-green-600 text-white py-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-300"
                         onClick={() => getTheatre(moviedata._id)}  >
                         Book Now
                     </button>
+                    {user.role === 1 && <button className="w-full text-center bg-red-600 mt-4 text-white py-2 rounded-lg hover:bg-yellow-500 focus:outline-none focus:ring-2 focus:ring-red-300"
+                        onClick={() => removeMovie(moviedata._id)}  >
+                        Remove
+                    </button>}
                 </div>
             </div>
 

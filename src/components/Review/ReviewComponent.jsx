@@ -105,7 +105,7 @@ function ReviewComponent() {
     }
 
     return (
-        <div>
+        <div className='bg-black min-h-screen'>
             <div className="container mx-auto p-4 dark:bg-slate-900">
                 {/* Review Input Section */}
                 <div className="bg-white dark:bg-gray-500 p-4 rounded-lg shadow-md">
@@ -145,7 +145,7 @@ function ReviewComponent() {
 
 
                 {reviews.map((element, index) => {
-                    return <div className="mt-8 " key={index}>
+                    return <div className="mt-8" key={index} >
 
                         <div className="bg-gray-100 dark:bg-blue-900 p-4 rounded-lg shadow-md mb-4">
                             <div className="flex justify-between items-center">
