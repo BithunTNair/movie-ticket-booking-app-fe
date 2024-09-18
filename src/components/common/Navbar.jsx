@@ -53,19 +53,19 @@ function NavbarCom() {
           >
              <button
               onClick={() => navigate('/home')}
-              className="text-black dark:text-white  transition-colors"
+              className="text-black dark:text-white  transition-colors  font-bold"
             >
               Home
             </button>
             <button
               onClick={() => navigate('/movielist')}
-              className="text-black dark:text-white  transition-colors"
+              className="text-black dark:text-white transition-colors  font-bold"
             >
               Movies
             </button>
             {user.role === 1 && <button
               onClick={() => navigate('/addmovies')}
-              className="text-black dark:text-white transition-colors"
+              className="text-black dark:text-white transition-colors  font-bold"
             >
               Add Movies
             </button>}
@@ -74,20 +74,20 @@ function NavbarCom() {
            
             <button
               onClick={() => navigate('/theatres')}
-              className="text-black dark:text-white transition-colors"
+              className="text-black dark:text-white transition-colors  font-bold"
             >
               Theatres
             </button>
             {user.role === 1 && <button
               onClick={() => navigate('/addtheatre')}
-              className="text-black dark:text-white transition-colors"
+              className="text-black dark:text-white transition-colors  font-bold"
             >
               Add Theatre
             </button>}
  
             <button
               onClick={() => navigate('/reviews&ratings')}
-              className="text-black dark:text-white transition-colors"
+              className="text-black dark:text-white transition-colors  font-bold"
             >
              Reviews & Ratings
             </button>

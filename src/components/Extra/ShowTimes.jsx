@@ -65,11 +65,11 @@ function ShowTimes() {
                 {filteredShows.map((element, index) => {
                     return <div className="w-full max-w-4xl bg-white dark:bg-zinc-800 rounded-lg shadow-md p-6 mt-8" key={index} >
                         <div className="flex justify-between">
-                            <div className="p-4 border border-gray-200 rounded-lg shadow-sm">
+                            <div className="p-3  w-28 h-12 border border-gray-200 rounded-lg shadow-sm">
                                 <h3 className="text-xl font-semibold text-black dark:text-white">{element.showTimes.time} </h3>
                                 <p className="text-gray-600">{''} </p>
                             </div>
-                            <button className='bg-green-400 border rounded text-white p-4 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={handleshowId} value={element.showTimes._id} >Book Now</button>
+                            <button className='bg-green-400 border rounded text-white p-2 w-24 h-10 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={handleshowId} value={element.showTimes._id} >Book Now</button>
                         </div>
                     </div>
                 })}

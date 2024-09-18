@@ -7,6 +7,7 @@ import * as yup from "yup"
 import { errorToast, successToast } from '../Plugins/Toast';
 import { setLoader } from '../Redux/generalSlice';
 import Input from '../components/common/Input'
+import NavbarCom from './common/Navbar';
 
 
 function AddTheatre() {
@@ -62,9 +63,10 @@ function AddTheatre() {
 
   return (
     <>
-      <div className="flex min-h-screen items-center justify-center bg-gray-700 bg-cover bg-center bg-no-repeat " style={{ backgroundImage: "url('https://img.freepik.com/free-photo/movie-background-collage_23-2149876003.jpg?size=626&ext=jpg&ga=GA1.1.1787796043.1706771541&semt=ais_hybrid')" }}>
-        <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
-          <h2 className="text-2xl font-bold text-center mb-6">Add Your Theatre</h2>
+    <NavbarCom/>
+      <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-900 bg-cover bg-center bg-no-repeat ">
+        <div className="w-full max-w-md bg-gray-50 dark:bg-slate-900 p-8 rounded-lg shadow-md">
+          <h2 className="text-2xl font-bold text-center mb-6 dark:text-white">Add Your Theatre</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col space-y-4">
               <div>
@@ -93,7 +95,7 @@ function AddTheatre() {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-black text-white py-2 rounded-lg shadow-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  className="w-full bg-black dark:bg-yellow-400 dark:hover:bg-green-400 text-white py-2 rounded-lg shadow-md hover:bg-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
                   Add Theatre
                 </button>

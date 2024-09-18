@@ -22,9 +22,10 @@ function MovieList() {
     }
     return (
         <>
+        <NavbarCom/>
             <div className='min-w-screen min-h-screen dark:bg-zinc-900 bg-white'>
 
-                <div className=' min-w-screen-sm flex flex-wrap gap-7 mt-10 ml-8 mr-8 justify-between bg-zinc-900'>
+                <div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between '>
 
                     {movieBox.map((element, index) => {
                         return <Card key={index} moviedata={element} />

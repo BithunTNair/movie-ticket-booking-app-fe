@@ -7,12 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 function ReviewComponent() {
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
     const { user } = useSelector(store => store.user);
     const userId = user._id;
     const [reviews, setReviews] = useState([]);
     const [modal, setModal] = useState(false);
     const [reviewid, setReviewid] = useState('');
+    const [reviewData, setReviewData] = useState({
+        review: '', 
+        rating: ''
+      });
     useEffect(() => {
         getReviews()
     }, []);
@@ -77,23 +81,29 @@ function ReviewComponent() {
     const getId = (revid) => {
         setReviewid(revid);
         console.log(reviewid);
-        
+
         setModal(true)
     }
     const updateReview = async () => {
         try {
             await AxiosInstance({
                 url: `/users/updatereviews/${reviewid}`,
-                method: 'PUT'
+                method: 'PUT',
+                data:reviewData
             });
             getReviews();
             setModal(false);
-            
+
         } catch (error) {
             console.log(error);
+          
 
         }
+    };
+    const handleChange = (e) => {
+        setReviewData({ ...reviewData, [e.target.name]: e.target.value });
     }
+
     return (
         <div>
             <div className="container mx-auto p-4 dark:bg-slate-900">
@@ -134,8 +144,8 @@ function ReviewComponent() {
                 </div>
 
 
-                {reviews.map((element) => {
-                    return <div className="mt-8">
+                {reviews.map((element, index) => {
+                    return <div className="mt-8 " key={index}>
 
                         <div className="bg-gray-100 dark:bg-blue-900 p-4 rounded-lg shadow-md mb-4">
                             <div className="flex justify-between items-center">
@@ -184,15 +194,37 @@ function ReviewComponent() {
                     </button>
                     <div className="p-6">
                         {/* Modal Content */}
-                       
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-4 ">
+                            {/* Review Input */}
+                            <input
+                                type="text"
+                                placeholder="Type your review here..."
+                                className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name='review'
+                                value={reviewData.review}
+                                onChange={handleChange}
+                            />
+                            {/* Rating Input */}
+                            <input
+                                type="number"
+                                placeholder="Rating (1-5)"
+                                className="flex-1 p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                name='rating'
+                                value={reviewData.rating}
+                                onChange={handleChange}
+                            />
+
+                            {/* Submit Button */}
+
+                        </div>
                         {/* Close Button */}
-                        <button
+
+                        <button type='submit'
                             className="px-4 py-2 bg-yellow-400 text-black rounded hover:bg-yellow-500 focus:outline-none"
                             onClick={updateReview}
                         >
                             Update
                         </button>
-
                     </div>
                 </div>
             </div>}
