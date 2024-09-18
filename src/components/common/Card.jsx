@@ -42,7 +42,7 @@ function Card({ moviedata }) {
     }
     return (
         <>
-            <div className="max-w-xs rounded-lg overflow-hidden shadow-lg cursor-pointer bg-white hover:bg-blue-400 transform hover:scale-105 transition-transform duration-300">
+            <div className="max-w-xs rounded-lg overflow-hidden shadow-lg cursor-pointer bg-white hover:bg-blue-400 transform hover:scale-105 transition-transform duration-300 mt-10">
                 {/* Image or Icon Section */}
                 <div className="relative">
                     <img

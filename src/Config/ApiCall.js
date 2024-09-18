@@ -16,7 +16,7 @@ AxiosInstance.interceptors.response.use((response) => {
 }, (error) => {
     if (error.response && error.response.status === 401) {
         console.log('unauthorized user');
-        window.location.href('/');
+        window.location.href='/'
         localStorage.clear()
 
     }

@@ -9,7 +9,7 @@ function MovieShows() {
     const [filteredShows, setFilteredShows] = useState([]);
     const { date, id } = useParams();
     const navigate = useNavigate();
-    const dispatch=useDispatch()
+    const dispatch = useDispatch()
 
     useEffect(() => {
 
@@ -17,24 +17,24 @@ function MovieShows() {
     }, []);
 
     const getAllShows = async () => {
-      try {
-        dispatch(setLoader(true))
-        const movieshows = await AxiosInstance({
-            url: '/users/getshowsbydate',
-            method: "GET",
-            params: {
-                showDate: date
-            }
-        });
+        try {
+            dispatch(setLoader(true))
+            const movieshows = await AxiosInstance({
+                url: '/users/getshowsbydate',
+                method: "GET",
+                params: {
+                    showDate: date
+                }
+            });
 
 
-        const filtered = movieshows.data.shows.filter((element) => element._id === id);
-        setFilteredShows(filtered);
-        dispatch(setLoader(false))
-      } catch (error) {
-        console.log(error);
-        dispatch(setLoader(false))
-      }
+            const filtered = movieshows.data.shows.filter((element) => element._id === id);
+            setFilteredShows(filtered);
+            dispatch(setLoader(false))
+        } catch (error) {
+            console.log(error);
+            dispatch(setLoader(false))
+        }
 
     };
     const handleId = (e) => {
@@ -44,7 +44,7 @@ function MovieShows() {
 
     return (
         <>
-        <NavbarCom/>
+            <NavbarCom />
             <div className="min-h-screen bg-gray-100 dark:bg-zinc-950 flex flex-col items-center p-6"  >
                 <div className="w-full max-w-md">
                     <h2 className="text-2xl font-bold text-center mb-4 dark:text-white">Movie Shows</h2>
@@ -61,7 +61,7 @@ function MovieShows() {
                         Get Shows Here
                     </button> */}
                 </div>
-                {filteredShows.map((element, index) => {
+                {filteredShows.length > 0 ? filteredShows.map((element, index) => {
                     return <div className="w-full max-w-4xl bg-white dark:bg-zinc-800 rounded-lg shadow-md p-6 mt-8" key={index} >
                         <div className="flex justify-between">
                             <div className="p-3  w-28 h-12 border border-gray-200 rounded-lg shadow-sm">
@@ -71,7 +71,7 @@ function MovieShows() {
                             <button className='bg-green-400 border rounded text-white p-2 w-24 h-10 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={handleId} value={element.showTimes._id} >Book Now</button>
                         </div>
                     </div>
-                })}
+                }) : <p className='text-black dark:text-white text-3xl mt-10 ml-4 font-medium'> shows are not available..Please check another date</p>}
             </div>
 
 

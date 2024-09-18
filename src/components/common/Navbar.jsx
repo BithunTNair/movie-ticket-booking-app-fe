@@ -8,6 +8,10 @@ function NavbarCom() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector(store => store.user);
+  const logout=()=>{
+    navigate('/', { replace: true });
+    localStorage.clear()
+  }
   
 
 
@@ -115,7 +119,7 @@ function NavbarCom() {
                     Settings
                   </button>
                   <button
-                    onClick={() => navigate('/', { replace: true })}
+                    onClick={() => logout()}
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                   >
                     Logout
