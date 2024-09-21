@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Input from '../common/Input'
 import { useForm } from "react-hook-form"
 import axios from 'axios';
@@ -8,11 +8,16 @@ import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../Plugins/Toast';
 import { useDispatch } from 'react-redux';
 import { setLoader } from '../../Redux/generalSlice';
-import img1 from '../../background-images/movie2.jpg'
 import NavbarCom from '../common/Navbar';
 
 function OwnerSignup() {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const [securitycode, setSecuritycode] = useState(generateSecurityCode());
+    console.log(securitycode);
+
+
     const schema = yup
         .object({
             firstName: yup.string().required(),
@@ -28,9 +33,17 @@ function OwnerSignup() {
         watch,
         formState: { errors }
     } = useForm({ resolver: yupResolver(schema) });
-    const navigate = useNavigate()
+
+    function generateSecurityCode() {
+        return Math.floor(100000 + Math.random() * 900000);
+    }
+
     const onSubmit = (data) => {
-        dispatch(setLoader(true))
+        if (data.securitycode !== String(securitycode)) {
+            return errorToast('Invalid security code');
+        }
+
+        dispatch(setLoader(true));
         try {
             axios({
                 url: `${import.meta.env.VITE_BASE_URL}/auth/ownersignup`,
@@ -39,8 +52,9 @@ function OwnerSignup() {
             }).then((response) => {
                 console.log(response.data);
                 successToast('Signup successfull');
+                setSecuritycode(generateSecurityCode());
                 dispatch(setLoader(false))
-                navigate('/login', { replace: true });
+                navigate('/ownerlogin', { replace: true });
 
 
             }).catch((err) => {
@@ -57,7 +71,7 @@ function OwnerSignup() {
 
     return (
         <>
-        <NavbarCom/>
+            <NavbarCom />
             <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black bg-cover bg-center bg-no-repeat">
                 <div className="w-full max-w-md bg-gray-50 dark:bg-zinc-900 p-8 rounded-lg shadow-md">
                     <h2 className="text-2xl text-black dark:text-white font-bold text-center mb-6">Owner Sign Up</h2>
@@ -80,8 +94,8 @@ function OwnerSignup() {
                                 <p className='text-red-400'>{errors.mobileNumber && 'Mobile number must be exactly 10 digits'}</p>
                             </div>
                             <div>
-                                <Input type={'String'} placeholder={'Security Code'}{...register("securitycode")} />
-                                <p className='text-red-400'>{errors.password?.message}</p>
+                                <Input type={'text'} placeholder={'Security Code'}  {...register("securitycode")} />
+                                <p className='text-red-400'>{errors.securitycode && 'Invalid security code'}</p>
                             </div>
                             <div>
                                 <Input type={'password'} placeholder={'Password'}{...register("password")} />

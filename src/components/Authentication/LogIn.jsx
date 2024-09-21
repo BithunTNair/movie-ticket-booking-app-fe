@@ -40,7 +40,6 @@ function LogIn() {
         localStorage.setItem('token', response.data.token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
         dispatch(setUser(response.data.user));
-        successToast('signed in successfully');
         dispatch(setLoader(false));
         navigate('/home', { replace: true });
        

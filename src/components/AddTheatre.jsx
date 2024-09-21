@@ -11,11 +11,23 @@ import NavbarCom from './common/Navbar';
 
 
 function AddTheatre() {
-  const [movies, setMovies] = useState([])
+  const [movies, setMovies] = useState([]);
+  const [ownerdata, setOwnerdata] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
+    getOwners()
     getMovies();
   }, []);
+  const getOwners = async () => {
+    const owners = await AxiosInstance({
+      url: '/admin/getownerdata',
+      method: 'GET'
+    });
+    setOwnerdata(owners.data.owners);
+    console.log(ownerdata);
+
+
+  }
   const getMovies = async () => {
     try {
       const movie = await AxiosInstance({
@@ -35,6 +47,7 @@ function AddTheatre() {
       name: yup.string().required(),
       location: yup.string().required(),
       movie: yup.string().required(),
+      owner: yup.string().required(),
 
     })
     .required()
@@ -63,7 +76,7 @@ function AddTheatre() {
 
   return (
     <>
-    <NavbarCom/>
+      <NavbarCom />
       <div className="flex min-h-screen items-center justify-center bg-white dark:bg-zinc-900 bg-cover bg-center bg-no-repeat ">
         <div className="w-full max-w-md bg-gray-50 dark:bg-slate-900 p-8 rounded-lg shadow-md">
           <h2 className="text-2xl font-bold text-center mb-6 dark:text-white">Add Your Theatre</h2>
@@ -89,8 +102,19 @@ function AddTheatre() {
                 </select>
               </div>
               <div>
+                <select {...register('owner')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                  <option className='font-semibold'>selectowner name</option>
+                  {ownerdata.map((element, index) => {
+                    return <option className='font-semibold' key={index} value={element._id}>
+                      {element.firstName + ' ' + element.lastName}
+                    </option>
+                  })}
+                </select>
+                <p className='text-red-400'>{errors.owner && 'Ownner name is required'}</p>
+              </div>
+              <div>
                 <Input type={'text'} placeholder={'Number of Seats'}{...register("seats")} />
-                <p className='text-red-400'>{errors.director && 'Director name is required'}</p>
+                <p className='text-red-400'>{errors.director && 'number of seats is required'}</p>
               </div>
               <div>
                 <button
