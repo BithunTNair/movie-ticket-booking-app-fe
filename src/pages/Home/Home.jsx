@@ -1,27 +1,30 @@
 import React, { useEffect, useState } from 'react'
 import NavbarCom from '../../components/common/Navbar'
 import Card from '../../components/common/Card'
-import MovieList from '../Movies/MovieList';
-
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Footer from '../../components/Footer/Footer';
 import AxiosInstance from '../../Config/ApiCall';
+import { setLoader } from '../../Redux/generalSlice';
 
 function Home() {
   const { user } = useSelector(store => store.user);
+  const dispatch=useDispatch();
   const [movieBox, setMovieBox] = useState([]);
   useEffect(() => {
     getAllMovies()
   }, [])
   const getAllMovies = async () => {
     try {
+      dispatch(setLoader(true))
       const movie = await AxiosInstance({
         url: '/users/movielist',
         method: 'GET'
       })
       setMovieBox(movie.data.movies);
+      dispatch(setLoader(false))
     } catch (error) {
       console.log(error);
+      dispatch(setLoader(false))
 
     }
   }

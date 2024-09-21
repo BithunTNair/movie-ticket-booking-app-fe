@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import * as yup from "yup"
 import AxiosInstance from '../../Config/ApiCall';
 import { useDispatch, useSelector } from 'react-redux';
+import { setLoader } from '../../Redux/generalSlice';
 
 
 function ReviewComponent() {
@@ -24,31 +25,36 @@ function ReviewComponent() {
 
     const getReviews = async () => {
         try {
+            dispatch(setLoader(true))
             const response = await AxiosInstance({
                 url: '/users/getreviews',
                 method: 'GET'
             });
             const review = response.data.reviews;
             const reversedArray = review.reverse()
-            setReviews(reversedArray)
+            setReviews(reversedArray);
+            dispatch(setLoader(false))
 
         } catch (error) {
             console.log(error);
+            dispatch(setLoader(false))
 
         }
     };
     const deleteReview = async (id) => {
         try {
+            dispatch(setLoader(true))
             const reviewId = id;
             await AxiosInstance({
                 url: `/users/deletereviews/${reviewId}`,
                 method: 'DELETE'
             });
-            getReviews()
+            getReviews();
+            dispatch(setLoader(false))
 
         } catch (error) {
             console.log(error);
-
+            dispatch(setLoader(false))
         }
     }
 

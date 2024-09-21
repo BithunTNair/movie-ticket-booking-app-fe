@@ -96,6 +96,7 @@ function Signup() {
           </div>
         </form>
         <p className='font-medium text-white'>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/login', { replace: true })} >LogIn</i> </p>
+        <p className='font-medium text-white'>If you are a theatre owner <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/ownerlogin', { replace: true })} >Owner LogIn</i> </p>
       </div>
     </div>
   )

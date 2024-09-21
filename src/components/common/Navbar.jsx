@@ -62,6 +62,12 @@ function NavbarCom() {
               Home
             </button>
             <button
+              onClick={() => navigate('/dashboard')}
+              className="text-black dark:text-white transition-colors  font-bold"
+            >
+              Dashboard
+            </button>
+            <button
               onClick={() => navigate('/movielist')}
               className="text-black dark:text-white transition-colors  font-bold"
             >

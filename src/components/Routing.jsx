@@ -18,6 +18,8 @@ import TheatrebyMovie from './Theatre/TheatrebyMovie'
 import DatePicker from './Extra/DatePicker'
 import ShowTimes from './Extra/ShowTimes'
 import Seats from './Extra/Seats'
+import OwnerAuth from '../pages/OwnerAuthPage/OwnerAuth'
+import OwnerSignin from './OwnerAuth/OwnerSignin'
 
 
 function Routing() {
@@ -27,6 +29,8 @@ function Routing() {
                 <Route path='/' element={<AuthPage />} />
                 <Route path='/home' element={<Home />} />
                 <Route path='/login' element={<LogIn />} />
+                <Route path='/ownerlogin' element={<OwnerSignin />} />
+                <Route path='/dashboard' element={<OwnerAuth />} />
                 <Route path='/movielist' element={<MovieList />} />
                 <Route path='/theatres' element={<TheatrePage />} />
                 <Route path='/theatres/dateselect/:id' element={<DateSelect />} />
