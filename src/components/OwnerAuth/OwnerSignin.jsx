@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../Redux/userSlice';
 import { setLoader } from '../../Redux/generalSlice';
 import img1 from '../../background-images/movie2.jpg'
+import NavbarCom from '../common/Navbar';
 
 function OwnerSignin() {
     const navigate = useNavigate();
@@ -56,6 +57,7 @@ function OwnerSignin() {
     }
     return (
         <>
+        <NavbarCom/>
             <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black bg-cover bg-center bg-no-repeat">
                 <div className="w-full max-w-md bg-gray-50 dark:bg-zinc-900 p-8 rounded-lg shadow-md">
                     <h2 className="text-2xl font-bold text-center mb-6 text-black dark:text-white">Owner Log In</h2>

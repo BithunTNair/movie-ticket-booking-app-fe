@@ -8,11 +8,11 @@ function NavbarCom() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useSelector(store => store.user);
-  const logout=()=>{
+  const logout = () => {
     navigate('/', { replace: true });
     localStorage.clear()
   }
-  
+
 
 
   return (
@@ -55,7 +55,7 @@ function NavbarCom() {
             className={`${isOpen ? 'block' : 'hidden'
               } md:flex items-center space-x-4`}
           >
-             <button
+            <button
               onClick={() => navigate('/home')}
               className="text-black dark:text-white  transition-colors  font-bold"
             >
@@ -79,9 +79,9 @@ function NavbarCom() {
             >
               Add Movies
             </button>}
-         
-              <Theme/>
-           
+
+            <Theme />
+
             <button
               onClick={() => navigate('/theatres')}
               className="text-black dark:text-white transition-colors  font-bold"
@@ -89,17 +89,29 @@ function NavbarCom() {
               Theatres
             </button>
             {user.role === 1 && <button
+              onClick={() => navigate('/users')}
+              className="text-black dark:text-white transition-colors  font-bold"
+            >
+              Users
+            </button>}
+            {user.role === 1 && <button
               onClick={() => navigate('/addtheatre')}
               className="text-black dark:text-white transition-colors  font-bold"
             >
               Add Theatre
             </button>}
- 
+            {user.role === 2 && <button
+              onClick={() => navigate('/addtheatre')}
+              className="text-black dark:text-white transition-colors  font-bold"
+            >
+              Add Theatre
+            </button>}
+
             <button
               onClick={() => navigate('/reviews&ratings')}
               className="text-black dark:text-white transition-colors  font-bold"
             >
-             Reviews & Ratings
+              Reviews & Ratings
             </button>
 
             {/* Dropdown Menu */}
@@ -112,18 +124,18 @@ function NavbarCom() {
               </button>
               {isDropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
-                  <button
+                  {/* <button
                     onClick={() => navigate('/profile')}
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                   >
                     Profile
-                  </button>
-                  <button
+                  </button> */}
+                  {/* <button
                     onClick={() => navigate('/settings')}
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"
                   >
                     Settings
-                  </button>
+                  </button> */}
                   <button
                     onClick={() => logout()}
                     className="block px-4 py-2 text-gray-800 hover:bg-gray-100 w-full text-left"

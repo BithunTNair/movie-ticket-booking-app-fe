@@ -5,6 +5,7 @@ import * as yup from "yup"
 import AxiosInstance from '../../Config/ApiCall';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoader } from '../../Redux/generalSlice';
+import { errorToast } from '../../Plugins/Toast';
 
 
 function ReviewComponent() {
@@ -71,7 +72,9 @@ function ReviewComponent() {
         formState: { errors }
     } = useForm({ resolver: yupResolver(schema) });
     const onSubmit = async (data) => {
-        console.log(data);
+        if(user.role===2 ){
+            return errorToast('This review system only for normal users')
+        }
         try {
             await AxiosInstance({
                 url: `/users/addreviews/${userId}`,

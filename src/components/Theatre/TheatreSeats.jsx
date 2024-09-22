@@ -138,7 +138,7 @@ function TheatreSeats() {
 
         const result = await AxiosInstance.post("/payments/orders", { showId: showsid, seats: selectedSeats, theatreId: id, movieId: movieId });
         console.log(result);
-
+        setModal(false)
         if (!result) {
             alert("Server error. Are you online?");
             return;
