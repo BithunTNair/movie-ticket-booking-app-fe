@@ -29,7 +29,7 @@ function Home() {
     }
   }
   return (
-    <div>
+    <div className='min-w-screen'>
 
       <NavbarCom />
 
@@ -46,7 +46,7 @@ function Home() {
           </div>
         </div>
       </div>
-      <div>
+      <div className='mt-5'>
         <Footer />
       </div>
 

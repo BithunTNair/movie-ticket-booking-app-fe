@@ -137,8 +137,10 @@ function TheatreSeats() {
         }
 
         const result = await AxiosInstance.post("/payments/orders", { showId: showsid, seats: selectedSeats, theatreId: id, movieId: movieId });
-        console.log(result);
-        setModal(false)
+     
+        setModal(false);
+    
+        
         if (!result) {
             alert("Server error. Are you online?");
             return;
@@ -170,7 +172,7 @@ function TheatreSeats() {
                 const result = await AxiosInstance.post("/payments/verify", data);
 
                 // alert(result.data.msg);
-                successToast('Booking was completed');
+                successToast('Booking has been completed');
                 getSeats();
                 setSelectedSeats([]);
                 setModal(false)

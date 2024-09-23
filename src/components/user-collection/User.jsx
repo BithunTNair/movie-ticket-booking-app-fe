@@ -23,7 +23,8 @@ function User() {
     return (
         <>
             <NavbarCom />
-            <div className="  flex flex-wrap justify-center gap-4 p-6 dark:bg-black">
+           <div className='min-h-screen dark:bg-zinc-950'>
+           <div className="  flex flex-wrap justify-center gap-4 p-6 dark:bg-zinc-950">
                 {   users.map((user) => {
                     return   <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 p-4 bg-white rounded-lg shadow-lg dark:bg-gray-800">
                         <div className="p-4">
@@ -39,6 +40,7 @@ function User() {
 
 
             </div>
+           </div>
 
 
         </>

@@ -72,7 +72,7 @@ function ReviewComponent() {
         formState: { errors }
     } = useForm({ resolver: yupResolver(schema) });
     const onSubmit = async (data) => {
-        if(user.role===2 ){
+        if(user.role===2 || user.role===1){
             return errorToast('This review system only for normal users')
         }
         try {

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { errorToast, successToast } from '../../Plugins/Toast';
 import { useDispatch } from 'react-redux';
 import { setLoader } from '../../Redux/generalSlice';
-import NavbarCom from '../common/Navbar';
+import img1 from '../../background-images/movie2.jpg'
 
 function OwnerSignup() {
     const dispatch = useDispatch();
@@ -71,10 +71,9 @@ function OwnerSignup() {
 
     return (
         <>
-            <NavbarCom />
-            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black bg-cover bg-center bg-no-repeat">
-                <div className="w-full max-w-md bg-gray-50 dark:bg-zinc-900 p-8 rounded-lg shadow-md">
-                    <h2 className="text-2xl text-black dark:text-white font-bold text-center mb-6">Owner Sign Up</h2>
+            <div className="flex min-h-screen items-center justify-center bg-white dark:bg-black bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url(${img1})` }} >
+                <div className="w-full max-w-md bg-gray-50 dark:bg-zinc-900 p-8 rounded-lg shadow-md" style={{ backgroundImage: `url(${img1})` }} >
+                    <h2 className="text-2xl text-white font-bold text-center mb-6">Owner Sign Up</h2>
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <div className="flex flex-col space-y-4">
                             <div>
@@ -115,7 +114,7 @@ function OwnerSignup() {
                             </div>
                         </div>
                     </form>
-                    <p className='font-medium text-black dark:text-white '>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/ownerlogin')} >LogIn</i> </p>
+                    <p className='font-medium text-white '>Already have an account  <i className='text-blue-500 hover:underline	cursor-pointer font-medium' onClick={() => navigate('/ownerlogin')} >LogIn</i> </p>
                 </div>
             </div>
         </>
