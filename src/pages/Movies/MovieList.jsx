@@ -37,11 +37,13 @@ function MovieList() {
         <>
             <NavbarCom />
             <div className='min-w-screen min-h-screen dark:bg-zinc-900 bg-white'>
-                <input
+               <div className='flex justify-center' >
+               <input
                     className="w-full max-w-md px-4 py-2 border mt-3 ml-4 border-gray-300 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
                     placeholder="Search Movie"
                     onChange={searchedValue}
                 />
+               </div>
 
                 <div className=' min-w-screen-sm flex flex-wrap gap-7  ml-8 mr-8 justify-between'>
 

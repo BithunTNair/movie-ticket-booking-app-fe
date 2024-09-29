@@ -21,6 +21,7 @@ import Seats from './Extra/Seats'
 import OwnerAuth from '../pages/OwnerAuthPage/OwnerAuth'
 import OwnerSignin from './OwnerAuth/OwnerSignin'
 import User from './user-collection/User'
+import Owners from './user-collection/Owners'
 
 
 function Routing() {
@@ -33,6 +34,7 @@ function Routing() {
                 <Route path='/ownerlogin' element={<OwnerSignin />} />
                 <Route path='/dashboard' element={<OwnerAuth />} />
                 <Route path='/users' element={<User/>} />
+                <Route path='/owners' element={<Owners/>} />
                 <Route path='/movielist' element={<MovieList />} />
                 <Route path='/movielist' element={<MovieList />} />
                 <Route path='/theatres' element={<TheatrePage />} />

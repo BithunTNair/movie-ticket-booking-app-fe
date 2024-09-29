@@ -95,10 +95,10 @@ function NavbarCom() {
               Users
             </button>}
             {user.role === 1 && <button
-              onClick={() => navigate('/addtheatre')}
+              onClick={() => navigate('/owners')}
               className="text-black dark:text-white transition-colors  font-bold"
             >
-              Add Theatre
+              Owners
             </button>}
             {user.role === 2 && <button
               onClick={() => navigate('/addtheatre')}

@@ -153,7 +153,7 @@ function ReviewComponent() {
                 </div>
 
 
-                {reviews.map((element, index) => {
+                { reviews.length>0? reviews.map((element, index) => {
                     return <div className="mt-8" key={index} >
 
                         <div className="bg-gray-100 dark:bg-blue-900 p-4 rounded-lg shadow-md mb-4">
@@ -177,7 +177,7 @@ function ReviewComponent() {
 
 
                     </div>
-                })}
+                }):<p className='text-black dark:text-white text-2xl font-medium' >No reviews are here</p>}
             </div>
             {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4 w-full">
                 <div className="relative bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">

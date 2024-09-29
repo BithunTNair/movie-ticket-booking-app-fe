@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form"
 import AxiosInstance from '../Config/ApiCall';
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -13,6 +13,7 @@ import NavbarCom from './common/Navbar';
 function AddTheatre() {
   const [movies, setMovies] = useState([]);
   const [ownerdata, setOwnerdata] = useState([]);
+  const { user } = useSelector(store => store.user)
   const dispatch = useDispatch();
   useEffect(() => {
     getOwners()
@@ -46,8 +47,7 @@ function AddTheatre() {
     .object({
       name: yup.string().required(),
       location: yup.string().required(),
-      movie: yup.string().required(),
-      owner: yup.string().required(),
+     
 
     })
     .required()
@@ -63,6 +63,9 @@ function AddTheatre() {
         url: '/admin/addtheatre',
         method: 'POST',
         data: data,
+        params: {
+          ownerId: user._id
+        }
       }).then((response) => {
         successToast('Theatre was added successfully');
 
@@ -91,7 +94,7 @@ function AddTheatre() {
                 <Input type={'text'} placeholder={'Location'}{...register("location")} />
                 <p className='text-red-400'>{errors.description && 'Description is required'}</p>
               </div>
-              <div>
+              {/* <div>
                 <select {...register('movie')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                   <option className='font-semibold'>select movie</option>
                   {movies.map((element, index) => {
@@ -100,18 +103,8 @@ function AddTheatre() {
                     </option>
                   })}
                 </select>
-              </div>
-              <div>
-                <select {...register('owner')} className="w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                  <option className='font-semibold'>selectowner name</option>
-                  {ownerdata.map((element, index) => {
-                    return <option className='font-semibold' key={index} value={element._id}>
-                      {element.firstName + ' ' + element.lastName}
-                    </option>
-                  })}
-                </select>
-                <p className='text-red-400'>{errors.owner && 'Ownner name is required'}</p>
-              </div>
+              </div> */}
+            
               <div>
                 <Input type={'text'} placeholder={'Number of Seats'}{...register("seats")} />
                 <p className='text-red-400'>{errors.director && 'number of seats is required'}</p>
