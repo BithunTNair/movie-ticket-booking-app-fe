@@ -137,10 +137,10 @@ function TheatreSeats() {
         }
 
         const result = await AxiosInstance.post("/payments/orders", { showId: showsid, seats: selectedSeats, theatreId: id, movieId: movieId });
-     
+
         setModal(false);
-    
-        
+
+
         if (!result) {
             alert("Server error. Are you online?");
             return;
@@ -211,25 +211,32 @@ function TheatreSeats() {
     return (
         <>
             <NavbarCom />
-            <div className=" min-h-screen grid grid-cols-5 sm:grid-cols-10 md:grid-cols-10 lg:grid-cols-10 xl:grid-cols-10 gap-7 p-2 bg-white dark:bg-zinc-900">
+            <div className="min-h-screen grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 p-4 bg-white dark:bg-zinc-900">
                 {seats.map((seat, index) => (
                     <div
                         key={index}
-
                         onClick={() => selectordeSelectSeats(seat.seatNumber)}
-                        className={`${selectedSeats.find((number) => number === seat.seatNumber)
-                            ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-green-400 border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'
-                            : seat.isBooked
-                                ? 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-gray-500 dark:bg-red-500  dark:text-black border border-green-500 dark:border-white rounded-lg shadow hover:border-green-800 text-white  transform hover:scale-125 transition-all duration-300 cursor-pointer'
-                                : 'ml-9 flex justify-center items-center w-8 h-8 sm:w-10 sm:h-10 bg-white border border-green-500 rounded-lg shadow hover:border-green-800  transform hover:scale-125 transition-all duration-300 cursor-pointer'}`}
+                        className={`flex justify-center items-center w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 rounded-lg shadow-lg cursor-pointer transition-transform duration-300
+                ${selectedSeats.includes(seat.seatNumber)
+                                ? 'bg-green-500 text-white border border-green-700 hover:scale-105'
+                                : seat.isBooked
+                                    ? 'bg-gray-400 dark:bg-red-600 text-white dark:text-white cursor-not-allowed'
+                                    : 'bg-white text-black dark:text-white dark:bg-zinc-800 border border-green-500 hover:scale-105'}
+            `}
                     >
                         {seat.seatNumber}
                     </div>
                 ))}
-                <div className=''>
-                    <button className=' bg-green-400 border rounded text-white dark:text-black font-semibold p-2 lg:transform lg:hover scale-105 transition-transform duration-300' onClick={() => setModal(true)} >Book Now</button>
+                <div className="w-full flex justify-center mt-4 col-span-4 sm:col-span-6 md:col-span-8 lg:col-span-10">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-transform duration-300 transform hover:scale-105"
+                        onClick={() => setModal(true)}
+                    >
+                        Book Now
+                    </button>
                 </div>
             </div>
+
             {modal && <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-75 p-4">
                 <div className="relative bg-white dark:bg-zinc-900 rounded-lg shadow-lg w-full max-w-md mx-auto">
                     <button
@@ -267,7 +274,7 @@ function TheatreSeats() {
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none"
                             onClick={displayRazorpay}
                         >
-                            Book
+                            Confirm and Pay
                         </button>
 
                     </div>
